@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Performance Trade-offs</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: white; color: #111; display: flex; flex-direction: column; }
+
+    .panels-wrapper {
+      position: relative; /* Added to anchor the absolute background positioning */
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 40px 20px 10% 20px;
+    }
+
+    /* Added background image style matching your other slides */
+    .s2-bg {
+      position: absolute !important;
+      inset: 0;
+      background-image: url('logo_FRI/path4.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 90%;
+      opacity: 0.03;
+      z-index: 0 !important;
+      pointer-events: none;
+    }
+
+    .container-layout {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      position: relative; /* Added to layer safely over the background */
+      z-index: 2; /* Added to layer safely over the background */
+    }
+
+    /* Main Title: Left aligned and blue */
+    .panel-col-label {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0107ba;
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .panels {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 50px;
+    }
+
+    .panel-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Subtitles: Dark underline and closer to content */
+    h3 {
+        font-size: 1.3rem;
+        margin-bottom: 4px;
+        color: #111;
+        border-bottom: 2px solid #111;
+        display: inline-block;
+        padding-bottom: 4px;
+    }
+
+    .image-container {
+      height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #0107ba;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f0f2ff;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* Bullet point styling */
+    .bullet-list {
+      margin-top: 5px;
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    .bullet-list li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #111;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="panels-wrapper">
+    <div class="s2-bg"></div>
+
+    <div class="container-layout">
+        <span class="panel-col-label">Efficiency</span>
+        
+        <div class="panels">
+            <div class="panel-col">
+                <h3>Step runtime (old vs new version)</h3>
+                <div class="image-container">
+                  <img src="evaluation/Extractiom_time_before_after.png" alt="Step Performance Breakdown (old vs. new version)">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Parallelization</strong> We improve accuracy by parallelizing and reconstructing the fields after OCR.</li>
+                </ul>
+            </div>
+
+            <div class="panel-col">
+                <h3>Model Optimization (Pareto Frontier)</h3>
+                <div class="image-container" style="border-color: #1e8a4a; background: #f0faf4;">
+                  <img src="evaluation/Pareto_frontier.jpeg" alt="Model Efficiency Pareto Frontier Graphic">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Optimal frontier:</strong> 32-question batch limited to 3 pages per query maximizes LLM focus and accuracy.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
