@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Evaluation Logic</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; font-family: Arial, sans-serif; background: white; color: #111; display: flex; flex-direction: column; }
+
+    .panels-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 40px 20px 10% 20px; 
+    }
+
+    .container-layout {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main Title: Changed back to blue */
+    .panel-col-label {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0107ba; /* Blue color restored */
+      margin-bottom: 15px; 
+      text-align: left;
+    }
+
+    .panels {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 50px;
+    }
+
+    .panel-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px; 
+    }
+
+    /* Subtitles: Closer and with dark underline */
+    h3 {
+        font-size: 1.3rem;
+        margin-bottom: 6px; 
+        color: #333;
+        border-bottom: 2px solid #111; 
+        display: inline-block;
+        padding-bottom: 4px;
+    }
+
+    .formula-box {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        text-align: center;
+    }
+
+    .intro-text {
+        text-align: left;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .math-block {
+        margin: 10px 0; 
+        font-size: 1.00rem;
+    }
+
+    .logic-text {
+        font-size: 0.95rem;
+        line-height: 1.3;
+        color: #333;
+        text-align: left;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 12px;
+        margin-top: 10px;
+    }
+
+    .logic-text p {
+        margin-bottom: 6px;
+    }
+
+    /* Right Column Specific Styles */
+    .metrics-display {
+        display: flex;
+        justify-content: space-around;
+        background: #f8f9fa;
+        border: 1px solid #0107ba;
+        border-radius: 8px;
+        padding: 12px; 
+        text-align: center;
+    }
+
+    .metric-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .metric-label {
+        font-size: 0.7rem;
+        font-weight: bold;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .metric-value {
+        font-size: 1.4rem;
+        color: #0107ba;
+    }
+
+    .image-container {
+      height: 52vh; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fafafa;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="panels-wrapper">
+    <div class="container-layout">
+        <span class="panel-col-label">Evaluation</span>
+        
+        <div class="panels">
+            <div class="panel-col">
+                <h3>Evaluation framework</h3>
+                
+                <div class="formula-box">
+                    <div class="intro-text">We define:</div>
+                    
+                    <div class="math-block">
+                        \[ \mathcal{S} = \sum_{i=1}^{N} w_i \cdot \sigma(\hat{y}_i, y_i), \quad \left(\sum_{i=1}^{N} w_i = 1\right) \]
+                    </div>
+
+                    <div class="math-block">
+                        \[ 
+                        \sigma =  
+                        \begin{cases} 
+                        1 & \text{Correct} \\ 
+                        0 & \text{Missing} \\ 
+                        -1 & \text{Incorrect} 
+                        \end{cases} 
+                        \]
+                    </div>
+
+                    <div class="logic-text">
+                        <p><strong>Discrete Fields:</strong> Exact matching.</p>
+                        <p><strong>Free-text Fields:</strong> Levenshtein dist. (threshold of 0.85).</p>
+                        <p style="font-style: italic; color: #666; margin-top: 8px; margin-bottom: 0;">Utility: \( \mathcal{S} \in [-1, 1] \), where positive values indicate added value.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-col">
+                <h3>Experimental Results</h3>
+                
+                <div class="metrics-display">
+                    <div class="metric-item">
+                        <span class="metric-label">Extraction Score</span>
+                        <span class="metric-value">\( \mathcal{S} = 0.604 \pm 0.3 \)</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">System Accuracy</span>
+                        <span class="metric-value">\( 82.3\% \pm 0.42 \)</span>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                  <img src="evaluation/Match_status_by_field_type.png" alt="Evaluation Performance Graph">
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '\\[', right: '\\]', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false}
+          ],
+          throwOnError : false
+        });
+    });
+  </script>
+</body>
+</html>

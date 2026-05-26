@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Conclusion - AI Quote Intake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { 
+      height: 100%; 
+      overflow: hidden; 
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; 
+      background: white; 
+      color: #111; 
+    }
+
+    /* Main Container with the institutional watermark */
+    .slide-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 80px;
+      position: relative;
+    }
+
+    /* Background watermark */
+    .slide-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('logo_FRI/path4.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 80%;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Slide Title - Reduced size as requested */
+    .title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0107ba;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #0107ba;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    /* Conclusion Bullet Points */
+    .conclusion-list {
+      list-style: none;
+    }
+
+    .conclusion-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      background: rgba(248, 249, 250, 0.8);
+      padding: 18px 22px;
+      border-radius: 10px;
+      border-left: 5px solid #0107ba;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .icon-box {
+      font-size: 1.5rem;
+      color: #0107ba;
+      margin-right: 20px;
+      width: 40px;
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    /* Subtitles - Smaller font size */
+    .text-box h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0107ba;
+      margin-bottom: 4px;
+    }
+
+    /* Body text - Smaller font size */
+    .text-box p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 25px;
+      left: 80px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+    <div class="content-wrapper">
+      <h1 class="title">Conclusion</h1>
+
+      <ul class="conclusion-list">
+        <li class="conclusion-item">
+          <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+          <div class="text-box">
+            <h3>Our solution</h3>
+            <p>We developed a secure pipeline architecture that produces structured JSON files from insurance documents. Everything respecting data privacy.</p>
+          </div>
+        </li>
+
+        <li class="conclusion-item">
+          <div class="icon-box"><i class="fa-solid fa-database"></i></div>
+          <div class="text-box">
+            <h3>Accurate on synthetic and manually annotated dataset</h3>
+            <p>We obtain a positive score and high accuracy across different synthetic and manually annotated documents, providing a positive value for the company.</p>
+          </div>
+        </li>
+
+        <li class="conclusion-item">
+          <div class="icon-box"><i class="fa-solid fa-arrow-trend-up"></i></div>
+          <div class="text-box">
+            <h3>Future Research</h3>
+            <p>We want to focus on formalizing completeness on a generated dataset. Other directions, involve fine-tuning specialized models and improving zero-shot prompting.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      University of Ljubljana · Faculty of Computer and Information Science · Spring Semester 2026
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Section: Evaluation</title>
+<style>
+  /* Import a clean corporate font */
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
+
+  html, body { 
+    width: 100%; 
+    height: 100%; 
+    background: #ffffff; 
+    overflow: hidden;
+  }
+
+  /* Centering Wrapper */
+  .section-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative; /* Context for z-index layering */
+  }
+
+  /* ── ADDED: Background watermark image configuration ── */
+  .section-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('logo_FRI/path4.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+    opacity: 0.05;
+    z-index: 0;
+  }
+
+  /* Centered Section Title */
+  .section-title {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-size: 3rem;          /* Large presentation scale */
+    font-weight: 800;
+    color: #0107ba;           /* Authoritative corporate blue */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    padding-bottom: 16px;
+    text-align: center;
+    z-index: 2;               /* Keeps text sitting on top of background layer */
+  }
+
+</style>
+</head>
+<body>
+
+<div class="section-container">
+  <h1 class="section-title">Evaluation</h1>
+</div>
+ 
+</body>
+</html>

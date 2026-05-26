@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Professional Indemnity – Miscellaneous Professions Proposal</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --border: #d8dfec;
+      --accent: #00529b;
+      --accent-soft: #e3efff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --radius: 10px;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text-main);
+      zoom: 0.45;
+    }
+    .page {
+      max-width: 1440px;
+      margin: 0 auto 40px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.9fr 1.1fr;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    @media (max-width: 1100px) {
+      body { padding: 12px; }
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .card-header h2,
+    .card-header h3 {
+      font-size: 15px;
+      margin: 0;
+    }
+    .badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .badge-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: #f9fafb;
+    }
+    .badge-accent {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 12px;
+    }
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      font-size: 12px;
+      width: 100%;
+      background: #f9fafb;
+    }
+    textarea {
+      min-height: 40px;
+      resize: vertical;
+    }
+    .muted {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    .help {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 10px;
+      cursor: help;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    thead {
+      background: #eff4ff;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pill-green { background: #dcfce7; color: #16a34a; }
+    .pill-amber { background: #fffbeb; color: #d97706; }
+    .pill-red { background: #fee2e2; color: #dc2626; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent);
+      color: #ffffff;
+      margin-top: 6px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+    }
+    .additional-info-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+<h1>Professional Indemnity – Miscellaneous Professions</h1>
+<p class="subtitle">
+      Digital proposal form based on <strong>GIG Gulf Misc Professions</strong> and
+      <strong>Tokio Marine HCC Miscellaneous PI</strong> – adapted to your CAR/EAR-style product UI.
+    </p>
+<div class="layout">
+<!-- LEFT: Main PI Proposal Capture -->
+<div>
+<!-- 1. Policy & Core Information -->
+<div class="card" id="proposalUpload">
+<div class="card-header">
+<h2>Proposal Form Upload</h2>
+<span class="badge badge-outline">Upload</span>
+</div>
+<div class="grid-3">
+<div class="field">
+<label>Upload Proposal Form <span style="color:#dc2626;font-weight:700">*</span></label>
+<input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden" id="proposalFile" type="file"/>
+<button class="btn" id="proposalUploadBtn" type="button">Upload Proposal Form</button>
+<div class="muted" id="proposalFileName">No file selected.</div>
+</div><div class="field"><label>Upload RI Slip</label><input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden" id="riSlipFile" type="file"/><button class="btn" id="riSlipUploadBtn" type="button">Upload RI Slip</button><div class="muted" id="riSlipFileName">No file selected.</div></div>
+<div class="field">
+<label class="muted">Accepted formats</label>
+<div class="muted">PDF, DOC, DOCX</div>
+</div>
+</div>
+</div><div class="card" id="policyCore">
+<div class="card-header">
+<h2>1. Policy &amp; Core Information</h2>
+<span class="badge badge-outline">Step 1</span>
+</div>
+<div class="grid-2">
+<div class="field">
+<label>Policy Number <span style="color:#dc2626;font-weight:700">*</span></label>
+<input placeholder="Auto generated or Manual" type="text"/>
+</div>
+<div class="field"><label>Insured Name <span style="color:#dc2626;font-weight:700">*</span></label>
+<input placeholder="Legal entity / insured name" type="text"/>
+</div>
+</div>
+<div class="grid-2" style="margin-top:10px;">
+<div class="field">
+<label>Date Established</label>
+<input type="date"/>
+</div>
+</div>
+<div class="grid-3" style="margin-top:10px;">
+<div class="field" id="policyStartDateField">
+<label>Policy Start Date <span style="color:#dc2626;font-weight:700">*</span></label>
+<input type="date"/>
+<div class="hint">Policy start date and end date not to be printed on the quotation document</div>
+</div>
+<div class="field" id="policyEndDateField">
+<label>Policy End Date <span style="color:#dc2626;font-weight:700">*</span></label>
+<input type="date"/>
+</div>
+<div class="field">
+<label>Policy Type <span style="color:#dc2626;font-weight:700">*</span></label>
+<select id="policyType" required="True"><option value="">Select...</option><option>Project</option><option>Annual</option></select>
+</div>
+</div>
+<div class="grid-3" style="margin-top:10px;">
+<div class="field">
+<label>Cover-Trigger <span style="color:#dc2626;font-weight:700">*</span></label>
+<select id="coverTrigger" required="True">
+<option selected="">Claim Made Basis</option>
+<option>Occurrence Basis</option>
+</select>
+</div>
+<div class="field">
+<label>Requested Retroactive Date <span style="color:#dc2626;font-weight:700">*</span></label>
+<input required="True" type="date"/>
+</div>
+<div class="field">
+<label>Requested Retroactive limit <span style="color:#dc2626;font-weight:700">*</span></label>
+<input placeholder="e.g. 6 years / 10 years" required="True" type="text"/>
+</div>
+</div>
+<div class="section-label" style="margin-top:14px;">Territory &amp; Jurisdiction</div>
+<div class="grid-2">
+<div class="field">
+<label>Territory <span class="help" title="Typically aligned with where your clients are located and where you physically perform services.">?</span></label>
+<select id="territorialScope">
+<option>United Arab Emirates</option>
+<option>GCC</option>
+<option>Worldwide excluding USA and Canada</option>
+<option>Worldwide Including USA and Canada</option>
+<option>Others</option>
+</select>
+</div>
+<div class="field">
+<label>
+                Jurisdiction (where claims can be brought)
+                <span class="help" title="Legal jurisdictions under which you may be sued – often more restrictive than territorial scope (US/Canada usually higher risk).">?</span>
+</label>
+<select id="jurisdictionScope">
+<option>United Arab Emirates</option>
+<option>GCC</option>
+<option>Worldwide excluding USA and Canada</option>
+<option>Worldwide Including USA and Canada</option>
+<option>Others</option>
+</select>
+</div>
+</div><div class="section-label" style="margin-top:14px;">Cover Structure</div><div class="grid-2"><div class="field"><label>Policy wording <span style="color:#dc2626;font-weight:700">*</span></label><select id="scopeOfCover" required="True"><option>As per the Policy terms and conditions.</option></select></div></div>
+</div>
+<!-- 2. Practice & Firm Details -->
+<div class="card">
+<div class="card-header">
+<h2>2. Risk Information</h2>
+<span class="badge badge-outline">Step 1</span>
+</div><div class="grid-2" style="margin-top: 10px;">
+<div class="field"><label>Risk RAG (manual override)</label><select id="riskRagOverride"><option>Select...</option><option>Green</option><option>Amber</option><option>Red</option></select></div>
+<div class="field"><label>Limit of Indemnity</label><input placeholder="e.g. 1,000,000" type="number"/></div>
+</div>
+<div class="grid-2" style="margin-top: 10px;">
+<div class="field" id="estimatedTurnoverField"><label>Estimated Total Turnover</label><input placeholder="e.g. 5,000,000" type="number"/></div>
+<div class="field" id="estimatedFeesField"><label>Estimated Total Fees</label><input placeholder="e.g. 5,000,000" type="number"/></div>
+</div>
+<div class="grid-2 hidden" id="projectFinancialFields" style="margin-top: 10px;">
+<div class="field"><label>Contract Value</label><input placeholder="Contract value" type="number"/></div>
+<div class="field"><label>Total fees</label><input placeholder="Total fees" type="number"/></div>
+</div>
+<div class="grid-2">
+<div class="field">
+<label>
+                Type of Business / Profession
+                <span class="help" title="Primary profession to be covered (e.g. Management Consultancy, IT, Engineering, Legal, etc.).">?</span>
+</label>
+<select id="professionSelect">
+<option value="">Select...</option>
+<option>Architects And Consulting Engineers</option>
+<option>Accountants &amp; Auditors</option>
+<option>Lawyers</option>
+<option>Miscellaneous</option>
+</select>
+</div><div class="field hidden" id="typeOfProjectField"><label>Type of Project</label><select id="typeOfProjectSelect"><option value="">Select...</option><option>SPPI</option></select></div>
+<div class="field hidden" id="miscProfessionField">
+<label>Misc. Profession</label>
+<select id="miscProfessionSelect">
+<option value="">Select...</option>
+<option>Corporate Trainers</option>
+<option>Private Tutors</option>
+<option>Graphic Designers</option>
+<option>Copywriters</option>
+<option>ISO Certification Consultants</option>
+<option>Quality Assurance Consultants</option>
+<option>Executive Coaches</option>
+<option>Market Research Consultants</option>
+<option>PR Consultants</option>
+<option>Branding Consultants</option>
+<option>IT Consultants</option>
+<option>Web Developers</option>
+<option>HR Consultants</option>
+<option>Recruitment Consultants</option>
+<option>Business Consultants</option>
+<option>Management Consultants</option>
+<option>ERP Implementation Consultants</option>
+<option>Payroll Service Providers</option>
+<option>Property Managers</option>
+<option>Environmental Consultants (non-engineering)</option>
+<option>Data Security Consultants</option>
+<option>Cybersecurity Consultants</option>
+<option>Real Estate Valuers</option>
+<option>Event Planners</option>
+<option>Supply Chain Consultants</option>
+<option>Procurement Consultants</option>
+<option>Safety Consultants</option>
+<option>Training Institutes (large scale)</option>
+<option>Multi-service Consulting Firms</option>
+<option>Others</option>
+</select>
+</div>
+</div>
+<div class="grid-2" style="margin-top: 10px;">
+<div class="field">
+<label>Main Office Address</label>
+<textarea placeholder="Building / Street / City / Country"></textarea>
+</div>
+<div class="field">
+<label>Contact Details</label>
+<input placeholder="Telephone number" style="margin-bottom: 4px;" type="text"/>
+<input placeholder="Contact email address" style="margin-bottom: 4px;" type="text"/>
+<input placeholder="Practice website" type="text"/>
+</div>
+</div><div class="section-label" style="margin-top: 14px;">Business Activities</div><div class="grid-2">
+<div style="display:flex;flex-direction:column;gap:12px;"><div class="field">
+<label>
+              Full Description of Business Activities
+              <span class="help" title="Describe all services provided – advisory, design, implementation, project management, etc.">?</span>
+</label>
+<textarea placeholder="Narrative description of all professional services undertaken by the firm."></textarea>
+</div><div class="grid-2">
+<div class="field">
+<label>Annual Aggregate Limit</label>
+<input placeholder="Annual aggregate limit" type="text"/>
+</div>
+<div class="field">
+<label>Any one claims Limit</label>
+<input placeholder="Any one claims limit" type="text"/>
+</div>
+</div></div>
+<div class="grid-2">
+<div class="field hidden" id="scopeOfWorksField">
+<label>Scope of Works</label>
+<input placeholder="Scope of works" type="text"/>
+</div><div class="field hidden" id="anyOneOccurrenceLimitField">
+<label>Any one Occurrence Limit</label>
+<input placeholder="Any one occurrence limit" type="text"/>
+</div></div>
+</div><div id="additionalInfoSection" style="margin-top: 14px;">
+<div class="section-label">Additional Information</div>
+<button aria-controls="additionalInfoContent" aria-expanded="false" class="btn" id="additionalInfoToggle" type="button">Expand Additional Information</button>
+<div class="hidden additional-info-box" id="additionalInfoContent" style="margin-top: 10px;">
+<div class="muted" id="additionalInfoPlaceholder">Select Type of Business / Profession to view additional information.</div>
+<div id="professionSpecificBlock"></div>
+</div>
+</div>
+<div class="grid-2" style="margin-top: 10px;">
+<div class="field">
+<label>
+                Cover for Predecessor Firms / Prior Entities?
+                <span class="help" title="Whether cover is required for work done by predecessor firms or partners' previous practices.">?</span>
+</label>
+<select class="yn-toggle" data-target="predecessorDetails">
+<option>No</option>
+<option>Yes</option>
+</select>
+</div>
+</div>
+<div class="field hidden" id="predecessorDetails" style="margin-top: 8px;">
+<label>Details of Predecessor Firms / Prior Liability</label>
+<textarea placeholder="Names of predecessor firms, partners, dates, and nature of work for which cover is required."></textarea>
+</div>
+</div>
+<div class="hidden" id="projectDetailsSection">
+<div class="section-label" style="margin-top: 14px;">Project Details</div><div class="grid-2" style="margin-top: 10px;"><div class="field">
+<label>Project Description</label>
+<input placeholder="Project description" type="text"/>
+</div><div class="field">
+<label>Additional Project Details</label>
+<input placeholder="Additional project details" type="text"/>
+</div></div><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Unit</th>
+<th>Start Date</th>
+<th>End Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project period</td>
+<td>
+<select>
+<option>Months</option>
+<option>Days</option>
+</select>
+</td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+</tr>
+<tr>
+<td>Maintenance period</td>
+<td>
+<select>
+<option>Months</option>
+<option>Days</option>
+</select>
+</td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+</tr>
+<tr>
+<td>Extended Reporting Period</td>
+<td>
+<select>
+<option>Months</option>
+<option>Days</option>
+</select>
+</td>
+<td><input type="date"/></td>
+<td><input type="date"/></td>
+</tr>
+</tbody>
+</table>
+</div><div class="section-label" style="margin-top: 14px;">Claim Details</div><div class="grid-2">
+<div class="field">
+<label>
+                Any PI Claims in Last 5 Years?
+                <span class="help" title="Include paid and outstanding claims, whether successful or not.">?</span>
+</label>
+<select class="yn-toggle" data-target="claimsDetails" id="claimsLast5">
+<option>No</option>
+<option>Yes</option>
+</select>
+</div>
+<div class="field" style="display:flex;justify-content:flex-end;align-self:end;">
+<button class="btn" id="claimsHistoryUploadBtn" type="button">Claims history upload</button>
+<input accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,image/*" class="hidden" id="claimsHistoryFile" type="file"/>
+</div>
+</div><div class="field hidden" id="claimsDetails" style="margin-top: 8px;">
+<label>Claims History</label>
+<textarea placeholder="For each claim give: date, brief details, paid amount, outstanding estimate, corrective actions."></textarea>
+<div class="muted" id="claimsHistoryFileName">No file selected.</div>
+</div>
+<!-- 3. Subconsultants & Associated Companies -->
+<!-- 4. Activities, Turnover & Clients -->
+<!-- 5. Claims & Circumstances -->
+<!-- 6. Coverages & Limits -->
+<div class="card">
+<div class="card-header">
+<h2>3. Coverages &amp; Extension</h2>
+<span class="badge badge-outline">Insuring clause &amp; extensions</span>
+</div>
+<!-- 8.1 Core Coverage -->
+<div class="section-label">8.1 Core Professional Indemnity Coverage</div>
+<p class="muted">
+            Standard cover typically includes: (a) civil liability for negligent act, error, omission or breach of professional duty in the conduct of
+            professional services; (b) unintentional misrepresentation or misstatement; (c) defamation arising from professional services; and
+            (d) defence costs and expenses incurred with the insurer's consent, on a <strong>claims-made</strong> basis, subject to the
+            territorial and jurisdictional limits and retroactive date stated in the schedule.
+          </p>
+<div class="grid-2" style="margin-top: 10px;">
+<div class="field">
+<label>Requested Limit of Indemnity</label>
+<input placeholder="e.g. 1,000,000" type="number"/>
+</div>
+<div class="field">
+<label>Excess / Deductible Amount</label>
+<input placeholder="e.g. 10,000" type="number"/>
+</div>
+</div>
+<!-- 8.2 Extensions -->
+<div class="section-label">8.2 Optional Extensions</div>
+<p class="muted">
+            Tick the extensions required and complete sub-limits / deductibles where applicable. Final terms are subject to underwriting approval.
+          </p>
+<div class="grid-2" style="margin-top: 8px;">
+<div class="field">
+<div class="checkbox-row">
+<input id="extLossDocs" type="checkbox"/>
+<label for="extLossDocs">
+                  Loss of Documents
+                  <span class="help" title="Covers loss, damage or destruction of documents (including electronic) in your care, custody or control, and the cost of reinstatement.">?</span>
+</label>
+</div>
+<div class="grid-2" style="margin-top: 4px;">
+<div class="field">
+<label>Sub-limit</label>
+<input placeholder="Amount" type="number"/>
+</div>
+<div class="field">
+<label>Deductible</label>
+<input placeholder="Amount" type="number"/>
+</div>
+</div>
+</div>
+<div class="field">
+<div class="checkbox-row">
+<input id="extDishonesty" type="checkbox"/>
+<label for="extDishonesty">
+                  Dishonesty of Employees
+                  <span class="help" title="Civil liability for loss caused by dishonest or fraudulent acts of employees (usually excluding dishonest partners/directors).">?</span>
+</label>
+</div>
+<div class="grid-2" style="margin-top: 4px;">
+<div class="field">
+<label>Sub-limit</label>
+<input placeholder="Amount" type="number"/>
+</div>
+<div class="field">
+<label>Deductible</label>
+<input placeholder="Amount" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<div class="grid-2" style="margin-top: 8px;">
+<div class="field">
+<div class="checkbox-row">
+<input id="extSubcon" type="checkbox"/>
+<label for="extSubcon">
+                  Vicarious Liability – Sub-consultants
+                  <span class="help" title="Extends cover to your legal liability for work performed by sub-consultants, subject to them maintaining adequate PI insurance.">?</span>
+</label>
+</div>
+<div class="field" style="margin-top: 4px;">
+<label>Notes / Conditions</label>
+<textarea placeholder="E.g. sub-consultants to hold PI with limit not less than your own, separate contracts, etc."></textarea>
+</div>
+</div>
+<div class="field">
+<div class="checkbox-row">
+<input id="extRegInvest" type="checkbox"/>
+<label for="extRegInvest">
+                  Regulatory Investigation Costs
+                  <span class="help" title="Costs of attending and defending regulatory, licensing or professional disciplinary investigations.">?</span>
+</label>
+</div>
+<div class="grid-2" style="margin-top: 4px;">
+<div class="field">
+<label>Sub-limit</label>
+<input placeholder="Amount" type="number"/>
+</div>
+<div class="field">
+<label>Deductible</label>
+<input placeholder="Amount" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<div class="grid-2" style="margin-top: 8px;">
+<div class="field">
+<div class="checkbox-row">
+<input id="extRunoff" type="checkbox"/>
+<label for="extRunoff">
+                  Run-off Cover
+                  <span class="help" title="Cover for claims arising from past work after the practice ceases or is sold, for an agreed extended reporting period.">?</span>
+</label>
+</div>
+<div class="field" style="margin-top: 4px;">
+<label>Requested Run-off Period</label>
+<select>
+<option>Not requested</option>
+<option>1 year</option>
+<option>3 years</option>
+<option>6 years</option>
+</select>
+</div>
+</div>
+<div class="field">
+<div class="checkbox-row">
+<input id="extPR" type="checkbox"/>
+<label for="extPR">
+                  PR / Crisis Management Costs
+                  <span class="help" title="Reasonable public relations and crisis management expenses following an insured event, to protect reputation.">?</span>
+</label>
+</div>
+<div class="grid-2" style="margin-top: 4px;">
+<div class="field">
+<label>Sub-limit</label>
+<input placeholder="Amount" type="number"/>
+</div>
+<div class="field">
+<label>Deductible</label>
+<input placeholder="Amount" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- 8.4 Key Exclusions (summary) -->
+<div class="section-label">8.4 Key Standard Exclusions (summary)</div>
+<p class="muted">
+            Typically excluded (subject to full wording): (a) bodily injury / property damage (except where arising from professional services and specifically covered);
+            (b) fines, penalties and punitive damages; (c) deliberate, fraudulent or criminal acts of the insured (once established by final adjudication);
+            (d) known claims or circumstances prior to inception; (e) trading losses or guarantees of financial performance; (f) employers' liability
+            and motor / aircraft / marine liabilities (other than advice-related exposures).
+          </p>
+</div>
+<div class="card" id="clausesSection">
+<div class="card-header">
+<h2>5. Clauses/Conditions/Exclusions</h2>
+<span class="badge badge-outline">Selection</span>
+</div>
+<p class="muted">Select applicable clauses/conditions/exclusions:</p>
+<div class="grid-2" style="margin-top: 8px;">
+<div class="field" style="gap:0;">
+<div class="checkbox-row">
+<input id="clause_1" type="checkbox"/>
+<label for="clause_1">Cost inclusive clause</label>
+</div>
+</div>
+<div class="field" style="gap:0;">
+<div class="checkbox-row">
+<input id="clause_2" type="checkbox"/>
+<label for="clause_2">Retroactive cover clause</label>
+</div>
+</div>
+<div class="field" style="gap:0;">
+<div class="checkbox-row">
+<input id="clause_3" type="checkbox"/>
+<label for="clause_3">Change in risk clause</label>
+</div>
+</div>
+<div class="field" style="gap:0;">
+<div class="checkbox-row">
+<input id="clause_4" type="checkbox"/>
+<label for="clause_4">Professional services definition</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT: PI Snapshot / UW Side Panel -->
+<div>
+<!-- Snapshot card -->
+<div class="card">
+<div class="card-header">
+<h3>PI Snapshot – Underwriter View</h3>
+<span class="badge badge-accent">Summary panel</span>
+</div>
+<p class="muted">
+            This side panel is meant for your workbench to show a quick <strong>at-a-glance</strong> view
+            of a submission once the form is populated.
+          </p>
+<div class="section-label">Key Dimensions</div>
+<ul class="muted" style="margin-top: 4px; padding-left: 18px;">
+<li>Profession &amp; main activities</li>
+<li>Turnover by territory (GCC / EU / RoW)</li>
+<li>Largest 3 contracts (value &amp; fee)</li>
+<li>Use of sub-consultants &amp; associated firms</li>
+<li>Claims &amp; circumstances (last 5 years)</li>
+<li>Territory / jurisdiction &amp; requested limit / retro date</li>
+</ul>
+<p class="hint">
+            You can later plug a <strong>RAG scoring</strong> and <strong>referral engine</strong> here
+            using: profession, activity mix, geography, contract sizes, extensions and claims history as drivers.
+          </p>
+<button class="btn" type="button">
+            Generate UW Summary (future)
+          </button>
+</div>
+<!-- Risk Indicators card -->
+<div class="card">
+<div class="card-header">
+<h3>Indicative Risk Indicators</h3>
+<span class="badge badge-outline">RAG concept</span>
+</div>
+<p class="muted">
+            Example of how you might flag PI risk qualitatively in the UI:
+          </p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Indicator</th>
+<th>RAG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Territory Mix</td>
+<td>High US/Canada exposure, non-local law</td>
+<td><span class="pill pill-amber">Amber</span></td>
+</tr>
+<tr>
+<td>Contract Size</td>
+<td>Very large single contracts vs firm size</td>
+<td><span class="pill pill-amber">Amber</span></td>
+</tr>
+<tr>
+<td>Claims History</td>
+<td>Multiple paid claims / unresolved circumstances</td>
+<td><span class="pill pill-red">Red</span></td>
+</tr>
+<tr>
+<td>Risk Controls</td>
+<td>Strong QA &amp; standard contracts, no client funds</td>
+<td><span class="pill pill-green">Green</span></td>
+</tr>
+</tbody>
+</table>
+<p class="hint">
+            You can wire an internal scoring model to shift these indicators dynamically
+            as the user fills the proposal fields.
+          </p>
+</div>
+<!-- RAG & Referral Outcome card -->
+<div class="card">
+<div class="card-header">
+<h3>RAG &amp; Referral Outcome (Dynamic)</h3>
+<span class="badge badge-accent">PI rules</span>
+</div>
+<p class="muted">
+            Calculated from key risk drivers: profession, geography, claims history &amp; past underwriting actions.
+          </p>
+<div class="field">
+<label>Overall Risk Level</label>
+<span class="pill pill-green" id="ragPill">Green</span>
+</div>
+<div class="field" style="margin-top: 8px;">
+<label>Referral Status</label>
+<span class="muted" id="referralStatus">
+              No referral triggered based on current inputs.
+            </span>
+</div>
+<div class="field" style="margin-top: 8px;">
+<label>Referral Triggers</label>
+<ul class="muted" id="referralReasons" style="margin-top: 4px; padding-left: 18px;">
+<li>No specific referral conditions triggered yet.</li>
+</ul>
+</div>
+<p class="hint">
+            This logic is purely illustrative and can be replaced with your internal rating engine or treaty-driven rules.
+          </p>
+</div>
+<!-- Notes / Attachments -->
+<div class="card">
+<div class="card-header">
+<h3>Broker / UW Notes</h3>
+<span class="badge badge-outline">Optional</span>
+</div>
+<textarea placeholder="Free-text notes from broker or underwriter – e.g. unusual contracts, key mitigants, or rationale for any exceptions." style="width: 100%; min-height: 80px;"></textarea>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Yes/No -> show/hide logic
+    function initYnToggles() {
+      const toggles = document.querySelectorAll('.yn-toggle');
+      toggles.forEach(sel => {
+        const targetId = sel.getAttribute('data-target');
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const update = () => {
+          const val = sel.value || 'No';
+          target.classList.toggle('hidden', val !== 'Yes');
+        
+          // toggle required fields within the target block only when shown (data-required="true")
+          const reqFields = target.querySelectorAll('[data-required="true"]');
+          reqFields.forEach(el => {
+            if (val === 'Yes') {
+              el.setAttribute('required', 'true');
+            } else {
+              el.removeAttribute('required');
+            }
+          });
+        };
+
+        sel.addEventListener('change', () => {
+          update();
+          calculateRag(); // recalc when Y/N answers change
+        });
+        update();
+      });
+    }
+
+    // Profession-specific config: activities + extra questions
+    const ACTIVITY_OPTIONS = {
+      'Financial Institutions': [
+        'Strategic consulting / planning',
+        'Organisational design / operating model / change management',
+        'Process improvement / quality management',
+        'Human resources / people & performance',
+        'Training & coaching',
+        'Procurement / sourcing / vendor management',
+        'Project / programme management (non-IT)',
+        'Financial / corporate advisory (non-regulated)',
+        'Recruitment / executive search',
+        'Other specialist consulting'
+      ],
+      'It Consultants': [
+        'IT strategy / advisory only',
+        'Custom software development',
+        'Package implementation (ERP / CRM / core systems)',
+        'Systems integration / APIs / middleware',
+        'Data migration / data engineering',
+        'Cloud hosting / managed services / SaaS',
+        'Network / infrastructure design & support',
+        'Cyber security / penetration testing',
+        'Web / mobile app development – content / corporate',
+        'Web / mobile app development – transactional / payments',
+        'Support, maintenance & helpdesk',
+        'Other IT services'
+      ],
+      'Architects And Consulting Engineers': [
+        'Feasibility studies / conceptual design',
+        'Architectural planning only (no supervision)',
+        'Full architectural services (design + contract admin)',
+        'Structural engineering',
+        'Civil engineering / infrastructure',
+        'Mechanical & electrical / MEP design',
+        'Geotechnical / soil / foundation engineering',
+        'Quantity surveying / cost management',
+        'Project management / site supervision',
+        'Building surveys / technical inspections',
+        'Interior design / fit-out',
+        'Landscape / urban design',
+        'Other specialist engineering'
+      ],
+      'Accountants & Auditors': [
+        'Statutory audit – listed / public companies',
+        'Statutory audit – private / SME',
+        'Accountancy / bookkeeping / payroll',
+        'Corporate / business tax compliance',
+        'Personal tax compliance',
+        'Tax advisory / planning (non-aggressive)',
+        'Tax mitigation schemes / structured products',
+        'Management accounting / consultancy',
+        'Company secretarial / corporate services',
+        'Insolvency / liquidation / receivership',
+        'Corporate finance / M&A advisory',
+        'Trusteeships / executorships / estate work',
+        'Other accountancy services'
+      ],
+      'Lawyers': [
+        'Residential conveyancing / real estate',
+        'Commercial conveyancing / real estate',
+        'Civil litigation (non-class action)',
+        'Criminal law / criminal litigation',
+        'Commercial / corporate law (general)',
+        'Mergers & acquisitions / corporate transactions',
+        'Banking & finance / securities law',
+        'Employment law',
+        'Family law',
+        'Wills, probate, trusts & estate planning',
+        'Tax law',
+        'Intellectual property (IP, trademarks, copyright)',
+        'Arbitration / mediation / ADR',
+        'Other specialist practice areas'
+      ],
+
+
+      'Miscellaneous': [
+        'Advisory / consulting',
+        'Design / specification / planning',
+        'Implementation / project delivery',
+        'Training / workshops',
+        'Expert witness / opinions / reports',
+        'Audits / assessments / inspections',
+        'Data / analytics / modelling',
+        'Other professional services'
+      ],
+
+      'Insurance Intermediaries': [
+        'Insurance broking / placement',
+        'Corporate / commercial lines broking',
+        'Retail / personal lines broking',
+        'Reinsurance broking',
+        'Claims handling / administration',
+        'Risk advisory / loss prevention',
+        'Other intermediary services'
+      ],
+      'Fitness Instructors': [
+        'Personal training (1:1)',
+        'Group classes / studio instruction',
+        'Online / remote coaching',
+        'Fitness programme design',
+        'Nutrition advice (non-medical)',
+        'Other fitness services'
+      ],
+      'default': [
+        'Advisory / consulting',
+        'Implementation / project delivery',
+        'Training / workshops',
+        'Audits / assessments / inspections',
+        'Other professional services'
+      ]
+    };
+
+    const COMMON_PROFESSION_QUESTIONS = `
+      <div class="section-label">Professional Indemnity – Risk Questions</div>
+      <div class="field" style="margin-top:8px;">
+        <label>Total number of Partners, Directors, and Staff</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+      <div class="field" style="margin-top:8px;">
+        <label>Annual turnover/fees by territory (GCC, USA & Canada, Europe, Rest of World) for the Last, Current, and Next Financial Year</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+      <div class="field" style="margin-top:8px;">
+        <label>Details of the largest contracts/projects undertaken in the last three years</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+      <div class="field" style="margin-top:8px;">
+        <label>Breakdown of the firm's business activities</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+      <div class="field" style="margin-top:8px;">
+        <label>Do you handle client money, assets, or investments? If yes, provide details.</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+      <div class="field" style="margin-top:8px;">
+        <label>Additional details on services and higher-risk elements</label>
+        <textarea placeholder="Enter details"></textarea>
+      </div>
+    `;
+
+    function initAdditionalInfoToggle() {
+      const section = document.getElementById('additionalInfoSection');
+      const toggleBtn = document.getElementById('additionalInfoToggle');
+      const content = document.getElementById('additionalInfoContent');
+      if (!section || !toggleBtn || !content) return;
+
+      const setExpanded = (expanded) => {
+        content.classList.toggle('hidden', !expanded);
+        toggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        toggleBtn.textContent = expanded ? 'Collapse Additional Information' : 'Expand Additional Information';
+      };
+
+      toggleBtn.addEventListener('click', () => {
+        const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+        setExpanded(!expanded);
+      });
+
+      setExpanded(false);
+    }
+
+    function renderAdditionalInfoSection(hasContent) {
+      const section = document.getElementById('additionalInfoSection');
+      const toggleBtn = document.getElementById('additionalInfoToggle');
+      const content = document.getElementById('additionalInfoContent');
+      const placeholder = document.getElementById('additionalInfoPlaceholder');
+      if (!section || !toggleBtn || !content) return;
+
+      section.classList.remove('hidden');
+      content.classList.add('hidden');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.textContent = 'Expand Additional Information';
+
+      if (placeholder) {
+        placeholder.classList.toggle('hidden', hasContent);
+      }
+    }
+
+    function populateActivityOptions(profession) {
+      const options = ACTIVITY_OPTIONS[profession] || ACTIVITY_OPTIONS['default'];
+      const selects = document.querySelectorAll('.activity-select');
+      selects.forEach(sel => {
+        const current = sel.value;
+        sel.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Select activity';
+        sel.appendChild(placeholder);
+        options.forEach(opt => {
+          const o = document.createElement('option');
+          o.value = opt;
+          o.textContent = opt;
+          sel.appendChild(o);
+        });
+        const otherOpt = document.createElement('option');
+        otherOpt.value = 'Other – please specify';
+        otherOpt.textContent = 'Other – please specify';
+        sel.appendChild(otherOpt);
+
+        if (options.includes(current) || current === 'Other – please specify') {
+          sel.value = current;
+        } else {
+          sel.value = '';
+        }
+      });
+    }
+
+    function updateProfessionQuestions(profession) {
+      const container = document.getElementById('professionSpecificBlock');
+      if (!container) return;
+      const html = profession ? COMMON_PROFESSION_QUESTIONS : '';
+      container.innerHTML = html;
+      renderAdditionalInfoSection(Boolean(html));
+      initYnToggles();
+    }
+
+    // IT Consultants: revenue distribution validation (sum must equal 100%)
+    function validateItRevenue() {
+      const a = document.getElementById('itRevLocalLaw');
+      const b = document.getElementById('itRevNonLocalLaw');
+      const c = document.getElementById('itRevOtherPct');
+      const err = document.getElementById('itRevError');
+
+      if (!a || !b || !c || !err) return;
+
+      const av = parseFloat(a.value || '0') || 0;
+      const bv = parseFloat(b.value || '0') || 0;
+      const cv = parseFloat(c.value || '0') || 0;
+      const total = av + bv + cv;
+
+      const ok = Math.abs(total - 100) < 0.01; // tolerate tiny decimals
+      err.style.display = ok ? 'none' : 'block';
+
+      [a, b, c].forEach(el => {
+        if (ok) {
+          el.removeAttribute('aria-invalid');
+        } else {
+          el.setAttribute('aria-invalid', 'true');
+        }
+      });
+    }
+
+    function initItRevenueValidation() {
+      const a = document.getElementById('itRevLocalLaw');
+      const b = document.getElementById('itRevNonLocalLaw');
+      const c = document.getElementById('itRevOtherPct');
+
+      if (!a || !b || !c) return;
+
+      const handler = () => validateItRevenue();
+      [a, b, c].forEach(el => el.addEventListener('input', handler));
+      validateItRevenue();
+    }
+
+
+    function initProfessionLogic() {
+      const sel = document.getElementById('professionSelect');
+      const miscField = document.getElementById('miscProfessionField');
+      const miscSelect = document.getElementById('miscProfessionSelect');
+      const policyType = document.getElementById('policyType');
+      const professionField = sel ? sel.closest('.field') : null;
+      const projectField = document.getElementById('typeOfProjectField');
+      const projectSelect = document.getElementById('typeOfProjectSelect');
+      if (!sel) return;
+
+      const sync = () => {
+        const profession = sel.value || '';
+        const isMisc = profession === 'Miscellaneous';
+        const isProject = policyType && policyType.value === 'Project';
+
+        if (professionField) professionField.classList.toggle('hidden', isProject);
+        if (projectField) projectField.classList.toggle('hidden', !isProject);
+
+        if (isProject) {
+          sel.value = '';
+          if (miscField) miscField.classList.add('hidden');
+          if (miscSelect) {
+            miscSelect.value = '';
+            miscSelect.removeAttribute('required');
+          }
+          if (projectSelect) {
+            projectSelect.setAttribute('required', 'true');
+          }
+          updateProfessionQuestions('');
+        } else {
+          if (projectSelect) {
+            projectSelect.value = '';
+            projectSelect.removeAttribute('required');
+          }
+          if (miscField) {
+            miscField.classList.toggle('hidden', !isMisc);
+          }
+          if (miscSelect) {
+            if (isMisc) {
+              miscSelect.setAttribute('required', 'true');
+            } else {
+              miscSelect.value = '';
+              miscSelect.removeAttribute('required');
+            }
+          }
+          updateProfessionQuestions(profession);
+        }
+
+        populateActivityOptions(profession);
+        calculateRag();
+      };
+
+      sel.addEventListener('change', sync);
+      if (policyType) policyType.addEventListener('change', sync);
+      sync();
+    }
+
+    // Simple RAG + referral calculation
+    function calculateRag() {
+      let score = 0;
+      const reasons = [];
+
+      const professionEl = document.getElementById('professionSelect');
+      const profession = professionEl ? professionEl.value : '';
+
+      // Base profession risk weighting
+      if (profession === 'It Consultants' ||
+          profession === 'Architects And Consulting Engineers' ||
+          profession === 'Accountants & Auditors' ||
+          profession === 'Lawyers' ) {
+        score += 1;
+        reasons.push('Inherently higher-risk professional class');
+      }
+
+      // Claims & incidents
+      const claimsLast5 = document.getElementById('claimsLast5');
+      if (claimsLast5 && claimsLast5.value === 'Yes') {
+        score += 3;
+        reasons.push('PI claims reported in last 5 years');
+      }
+
+      const declinedPi = document.getElementById('declinedPi');
+      if (declinedPi && declinedPi.value === 'Yes') {
+        score += 3;
+        reasons.push('Previous PI proposal declined, cancelled or subject to special terms');
+      }
+
+      // Geography & jurisdiction
+      const territorialScope = document.getElementById('territorialScope');
+      if (territorialScope && territorialScope.value && territorialScope.value.toLowerCase().indexOf('including usa') !== -1) {
+        score += 2;
+        reasons.push('Worldwide territorial scope including USA / Canada');
+      }
+
+      const jurisdictionScope = document.getElementById('jurisdictionScope');
+      if (jurisdictionScope && jurisdictionScope.value && jurisdictionScope.value.toLowerCase().indexOf('including usa') !== -1) {
+        score += 2;
+        reasons.push('Worldwide jurisdiction including USA / Canada');
+      }
+
+      // RAG classification
+      let level = 'Green';
+      let pillClass = 'pill pill-green';
+
+      if (score >= 6) {
+        level = 'Red';
+        pillClass = 'pill pill-red';
+      } else if (score >= 3) {
+        level = 'Amber';
+        pillClass = 'pill pill-amber';
+      }
+
+      const ragPill = document.getElementById('ragPill');
+      const referralStatus = document.getElementById('referralStatus');
+      const referralReasons = document.getElementById('referralReasons');
+
+      if (ragPill) {
+        ragPill.className = pillClass;
+        ragPill.textContent = level;
+      }
+
+      // Referral logic: any score >=3 triggers referral
+      const referralRequired = score >= 3;
+
+      if (referralStatus) {
+        referralStatus.textContent = referralRequired
+          ? 'Referral required – see triggers below.'
+          : 'No referral triggered based on current inputs.';
+      }
+
+      if (referralReasons) {
+        referralReasons.innerHTML = '';
+        if (reasons.length === 0) {
+          const li = document.createElement('li');
+          li.textContent = 'No specific referral conditions triggered yet.';
+          referralReasons.appendChild(li);
+        } else {
+          reasons.forEach(r => {
+            const li = document.createElement('li');
+            li.textContent = r;
+            referralReasons.appendChild(li);
+          });
+        }
+      }
+    }
+
+    function initRagListeners() {
+      const ids = [
+        'professionSelect',
+        'claimsLast5',
+        'declinedPi',
+        'territorialScope',
+        'jurisdictionScope'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', calculateRag);
+        }
+      });
+      calculateRag();
+    }
+
+    
+    // Proposal form upload: button triggers file picker + shows selected filename
+    function initProposalUpload() {
+      const btn = document.getElementById('proposalUploadBtn');
+      const input = document.getElementById('proposalFile');
+      const nameEl = document.getElementById('proposalFileName');
+      if (!btn || !input) return;
+
+      btn.addEventListener('click', () => input.click());
+
+      input.addEventListener('change', () => {
+        if (!nameEl) return;
+        const file = input.files && input.files[0];
+        nameEl.textContent = file ? file.name : 'No file selected.';
+      });
+    }
+
+    function initRiSlipUpload() {
+      const btn = document.getElementById('riSlipUploadBtn');
+      const input = document.getElementById('riSlipFile');
+      const nameEl = document.getElementById('riSlipFileName');
+      if (!btn || !input) return;
+
+      btn.addEventListener('click', () => input.click());
+
+      input.addEventListener('change', () => {
+        if (!nameEl) return;
+        const file = input.files && input.files[0];
+        nameEl.textContent = file ? file.name : 'No file selected.';
+      });
+    }
+
+
+    function initClaimsHistoryUpload() {
+      const btn = document.getElementById('claimsHistoryUploadBtn');
+      const input = document.getElementById('claimsHistoryFile');
+      const nameEl = document.getElementById('claimsHistoryFileName');
+      if (!btn || !input) return;
+      btn.addEventListener('click', () => input.click());
+      input.addEventListener('change', () => {
+        if (!nameEl) return;
+        const file = input.files && input.files[0];
+        nameEl.textContent = file ? file.name : 'No file selected.';
+      });
+    }
+
+    function initDynamicFieldVisibility() {
+      const policyType = document.getElementById('policyType');
+      const coverTrigger = document.getElementById('coverTrigger');
+      const projectDetailsSection = document.getElementById('projectDetailsSection');
+      const projectFinancialFields = document.getElementById('projectFinancialFields');
+      const scopeOfWorksField = document.getElementById('scopeOfWorksField');
+      const anyOneOccurrenceLimitField = document.getElementById('anyOneOccurrenceLimitField');
+
+      const update = () => {
+        const isProject = policyType && policyType.value === 'Project';
+        const isOccurrence = coverTrigger && coverTrigger.value === 'Occurrence Basis';
+
+        if (projectDetailsSection) projectDetailsSection.classList.toggle('hidden', !isProject);
+        if (projectFinancialFields) projectFinancialFields.classList.toggle('hidden', !isProject);
+        if (scopeOfWorksField) scopeOfWorksField.classList.toggle('hidden', !isProject);
+        if (anyOneOccurrenceLimitField) anyOneOccurrenceLimitField.classList.toggle('hidden', !isOccurrence);
+      };
+
+      if (policyType) policyType.addEventListener('change', update);
+      if (coverTrigger) coverTrigger.addEventListener('change', update);
+      update();
+    }
+
+document.addEventListener('DOMContentLoaded', () => {
+      initProposalUpload();
+      initRiSlipUpload();
+      initClaimsHistoryUpload();
+      initYnToggles();
+      initAdditionalInfoToggle();
+      initProfessionLogic();
+      initRagListeners();
+      initDynamicFieldVisibility();
+    });
+  </script>
+</body>
+</html>
