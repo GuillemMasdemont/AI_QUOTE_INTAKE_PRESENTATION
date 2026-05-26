@@ -4,6 +4,8 @@ title: AI Quote Intake
 info: Automated data extraction from insurance documents
 layout: cover
 class: text-center
+drawings:
+  enabled: false 
 ---
   
 # **AI Quote <span style="color: #0107baff;">Intake</span>**
@@ -45,6 +47,24 @@ h1 {
   background-size: 90%;
   opacity: 0.05;
   z-index: 0;
+}
+
+
+/* Hide the broken undefined list bar */
+ol, ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* If it's a floating container causing this on your webpage: */
+body > ol, body > ul {
+  display: none !important;
+}
+
+/* Specifically target anything containing the text 'undefined' */
+li:contains("undefined") {
+  display: none !important;
 }
 
 /* Ensure content above background */
@@ -130,6 +150,7 @@ h1 {
   object-fit: contain;
   opacity: 0.95;
 }
+
 </style>
 
 <div class="left-logos">
@@ -152,11 +173,13 @@ h1 {
 ---
 layout: iframe
 url: /1-problem.html
+title: 1. The Problem
 ---
   
 ---
 layout: iframe
 url: /2-goal-slide.html
+title: 1. The goal
 ---
 
 ---
