@@ -373,11 +373,11 @@ const TRAVELER_STOPS = [
     <span style="font-size:6.5px;color:#555;">Output: PNG</span>
   </div>
 </div>`},
-  {x:X_PDF,  y:Y_MID, boxX: 110,  boxY: 75, label:"Input Document X",        text1:"Source insurance proposal PDF — may be scanned, rotated or degraded.",     img1:"pipeline_images/proposal_noisy.png"},
-  {x:FX1,    y:FBY,   boxX: 150,  boxY: 55, label:"OCR Parsing",               text1:"DocTR extracts text spans and bounding boxes from each PDF page.",           img1:"pipeline_images/proposal_noisy_doctr.jpeg"},
-  {x:FX2,    y:FBY,   boxX: 350,  boxY: 55, label:"Cortex Extractor",          text1:"LLM locates and extracts key fields using layout recognition and text cues.", img1:"pipeline_images/extraction_v2.png"},
-  {x:FX3,    y:FBY,   boxX: 540,  boxY: 55, label:"Canonicalisation & Teacher",text1:"Cross-checks answers, canonicalises formats and flags low-confidence items.",  img1:"pipeline_images/canonicalisation_v2.png"},
-  {x:X_JSON, y:Y_MID, boxX: 620,  boxY: 65, label:"Output Y",                  text1:"Structured JSON with extracted field values and per-field confidence scores.", img1:"pipeline_images/output_y_v3.png"}
+  {x:X_PDF,  y:Y_MID, boxX: 110,  boxY: 75, label:"Input Document X",        text1:"",     img1:"pipeline_images/proposal_noisy.png"},
+  {x:FX1,    y:FBY,   boxX: 150,  boxY: 55, label:"OCR Parsing",               text1:"",           img1:"pipeline_images/proposal_noisy_doctr.jpeg"},
+  {x:FX2,    y:FBY,   boxX: 350,  boxY: 55, label:"Cortex Extractor",          text1:"", img1:"pipeline_images/extraction_v2.png"},
+  {x:FX3,    y:FBY,   boxX: 540,  boxY: 55, label:"Canonicalisation & Teacher",text1:"",  img1:"pipeline_images/canonicalisation_v2.png"},
+  {x:X_JSON, y:Y_MID, boxX: 620,  boxY: 65, label:"Output Y",                  text1:"", img1:"pipeline_images/output_y_v3.png"}
 ];
 
 let step=0;
