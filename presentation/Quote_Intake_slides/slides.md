@@ -149,20 +149,19 @@ h1 {
   </div>
 </div>
 
+
+  
+
 ---
 layout: iframe
-url: /1-problem.html
+url: /1_2-problem.html
 ---
-  
+
 ---
 layout: iframe
 url: /2-goal-slide.html
 ---
 
-#---
-#layout: iframe
-#url: /3.0-methods-slide.html
-#--- 
     
 ---
 layout: iframe
@@ -195,10 +194,10 @@ layout: iframe
 url: /5.1-evaluation-slide.html
 ---
 
----
-layout: iframe
-url: /5.2-evaluation-slide.html
----
+#---
+#layout: iframe
+#url: /5.2-evaluation-slide.html
+#---
 
 
 ---
