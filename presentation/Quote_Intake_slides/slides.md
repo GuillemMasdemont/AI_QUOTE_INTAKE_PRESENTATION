@@ -159,10 +159,10 @@ layout: iframe
 url: /2-goal-slide.html
 ---
 
----
-layout: iframe
-url: /3.0-methods-slide.html
---- 
+#---
+#layout: iframe
+#url: /3.0-methods-slide.html
+#--- 
     
 ---
 layout: iframe
@@ -174,10 +174,10 @@ layout: iframe
 url: /4-dataset-slide.html
 ---
 
----
-layout: iframe
-url: /4.0-evaluation-slide.html
----
+#---
+#layout: iframe
+#url: /4.0-evaluation-slide.html
+#---
 
 
 #---
