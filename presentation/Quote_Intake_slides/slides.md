@@ -163,7 +163,7 @@ url: /2-goal-slide.html
 layout: iframe
 url: /3.0-methods-slide.html
 --- 
- 
+    
 ---
 layout: iframe
 url: /3-pipeline-slide.html
@@ -213,6 +213,10 @@ layout: iframe
 url: /8.0-conclusion.html
 ---
 
+---
+layout: iframe
+url: /extra_1-evaluation-slide.html
+---
 
 ---
 layout: iframe

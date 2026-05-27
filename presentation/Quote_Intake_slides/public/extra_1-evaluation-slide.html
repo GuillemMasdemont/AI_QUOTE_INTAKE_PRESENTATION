@@ -4,20 +4,21 @@
   <meta charset="utf-8">
   <title>Performance Trade-offs</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: white; color: #111; display: flex; flex-direction: column; }
 
     .panels-wrapper {
-      position: relative; 
+      position: relative; /* Added to anchor the absolute background positioning */
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       background: white;
-      padding: 40px 20px 5% 20px;
+      padding: 40px 20px 10% 20px;
     }
 
+    /* Added background image style matching your other slides */
     .s2-bg {
       position: absolute !important;
       inset: 0;
@@ -31,14 +32,15 @@
     }
 
     .container-layout {
-      width: 97%; /* Slightly widened to fit side-by-side content comfortably */
+      width: 100%;
       max-width: 1200px;
       display: flex;
       flex-direction: column;
-      position: relative; 
-      z-index: 2; 
+      position: relative; /* Added to layer safely over the background */
+      z-index: 2; /* Added to layer safely over the background */
     }
 
+    /* Main Title: Left aligned and blue */
     .panel-col-label {
       font-size: 2.2rem;
       font-weight: 700;
@@ -51,15 +53,17 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
+      gap: 50px;
     }
 
     .panel-col {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
     }
 
+    /* Subtitles: Dark underline and closer to content */
     h3 {
         font-size: 1.3rem;
         margin-bottom: 4px;
@@ -67,20 +71,10 @@
         border-bottom: 2px solid #111;
         display: inline-block;
         padding-bottom: 4px;
-        align-self: flex-start;
-    }
-
-    /* Side-by-side content wrapper */
-    .content-side-by-side {
-      display: flex;
-      align-items: center; /* Vertically centers the text with the image */
-      gap: 30px; 
-      width: 100%;
     }
 
     .image-container {
-      flex: 1.6; /* Gives the image a slightly larger share of the width */
-      width: 75vh;
+      height: 55vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -97,17 +91,18 @@
       object-fit: contain;
     }
 
-    /* Bullet point container styling */
+    /* Bullet point styling */
     .bullet-list {
-      flex: 1; /* Gives the text a clean column layout on the right */
+      margin-top: 5px;
       padding-left: 20px;
       list-style-type: disc;
     }
 
     .bullet-list li {
-      font-size: 1.1rem; /* Slightly larger for presentation readability */
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.5;
       color: #111;
+      margin-bottom: 4px;
     }
   </style>
 </head>
@@ -121,18 +116,22 @@
         <div class="panels">
             <div class="panel-col">
                 <h3>Model Optimization (Pareto Frontier)</h3>
-                
-                <div class="content-side-by-side">
-                  <div class="image-container" style="border-color: #1e8a4a; background: #f0faf4;">
-                    <img src="evaluation/Pareto_frontier.jpeg" alt="Model Efficiency Pareto Frontier Graphic">
-                  </div>
-                  
-                  <ul class="bullet-list">
-                    <li><strong>Optimal frontier:</strong> 32-question batch limited to 3 pages per query maximizes LLM focus and accuracy.</li>
-                    <li><strong>Elapsed time Optimization:</strong> First implementations spanned +3 minutes, final version takes less than 2 minutes.</li>
-                  </ul>
+                <div class="image-container" style="border-color: #1e8a4a; background: #f0faf4;">
+                  <img src="evaluation/Pareto_frontier.jpeg" alt="Model Efficiency Pareto Frontier Graphic">
                 </div>
+                <ul class="bullet-list">
+                  <li><strong>Optimal frontier:</strong> 32-question batch limited to 3 pages per query maximizes LLM focus and accuracy.</li>
+                </ul>
+            </div>
 
+            <div class="panel-col">
+                <h3>Step runtime (old vs new version)</h3>
+                <div class="image-container">
+                  <img src="evaluation/Extractiom_time_before_after.png" alt="Step Performance Breakdown (old vs. new version)">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Parallelization</strong> We improve accuracy by parallelizing and reconstructing the fields after OCR.</li>
+                </ul>
             </div>
         </div>
     </div>

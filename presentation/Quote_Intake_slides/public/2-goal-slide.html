@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <title>Goal</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;600;700;800&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: white; color: #111; display: flex; flex-direction: column; }
 
+    /* Make the wrapper container visibly clickable */
     .panels-wrapper {
       position: relative;
       flex: 1;
@@ -16,6 +17,7 @@
       justify-content: center;
       background: white;
       padding: 40px 20px 14% 20px;
+      cursor: pointer; 
     }
 
     .s2-bg {
@@ -75,13 +77,11 @@
       border: 2px solid #1e8a4a;
       box-shadow: 0 4px 20px rgba(30,138,74,0.15);
       background: #f0faf4;
-      cursor: pointer;
     }
 
     .pdf-container {
       flex: 1;
       overflow: hidden;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -95,7 +95,6 @@
       object-fit: contain;
     }
 
-    /* Translucent Highlight Box Styling */
     .highlight-box {
       position: absolute;
       border: 1.5px solid #ff4d00d3;
@@ -134,7 +133,7 @@
   </style>
 </head>
 <body>
-  <div class="panels-wrapper">
+  <div class="panels-wrapper" id="globalSlideWrapper">
     <div class="s2-bg"></div>
 
     <div class="panels">
@@ -158,73 +157,95 @@
   </div>
 
   <script>
-    // --- Left Panel Pagination Logic ---
-    const pages = Array.from({length: 8}, (_, i) =>
-      `/pdf_images/docCatalunya/proposal_catalunya_page-${String(1).padStart(4, '0')}.jpg`
-    );
-    let current = 0;
-    const img = document.getElementById('pdfImg');
-    const indicator = document.getElementById('pageIndicator');
+    // --- Elements ---
+    const imgLeft = document.getElementById('pdfImg');
+    const indicatorLeft = document.getElementById('pageIndicator');
     const pdfContainer = document.getElementById('pdfContainer');
-
-    pdfContainer.addEventListener('click', () => {
-      current = (current + 1) % pages.length;
-      img.src = pages[current];
-      indicator.textContent = `${current + 1} / ${pages.length}`;
-      
-      // Clear highlight box when changing document pages manually
-      const existingBox = document.getElementById('highlightBox');
-      if (existingBox) existingBox.remove();
-    });
-
-    // --- Right Panel Images & Highlight Configurations ---
-    const rightPages = [
-      {
-        src: '/screenshot/results_right_1.png',
-        box: null // No highlight box for the first image
-      },
-      {
-        src: '/screenshot/results_right_2.png',
-        box: { top: '25.8%', left: '38%', width: '15%', height: '3%' } // Box definition
-      },
-      {
-        src: '/screenshot/results_right_3.png',
-        box: { top: '40%', left: '38%', width: '30%', height: '3%' } // Example 3rd page box
-      }
-    ];
-
-    let currentRightIndex = 0;
-    const outputPanel = document.getElementById('outputPanel');
     const outputImg = document.getElementById('outputImg');
+    const globalWrapper = document.getElementById('globalSlideWrapper');
 
-    outputPanel.addEventListener('click', () => {
-      // 1. Cycle to the next right image
-      currentRightIndex = (currentRightIndex + 1) % rightPages.length;
-      const currentPageData = rightPages[currentRightIndex];
+    // --- Generate Left Side Document Path Arrays ---
+    const leftPages = Array.from({length: 8}, (_, i) =>
+      `/pdf_images/docCatalunya/proposal_catalunya_page-${String(i + 1).padStart(4, '0')}.jpg`
+    );
+
+    // --- Core Narrative Timeline Steps ---
+    // This timeline coordinates both screens so they advance logically together on any click.
+    const timelineTimeline = [
+      { leftIdx: 0, rightIdx: 0, box: null },
+      { leftIdx: 0, rightIdx: 1, box: { top: '25.8%', left: '38%', width: '15%', height: '3%' } },
+      { leftIdx: 0, rightIdx: 2, box: { top: '40%', left: '38%', width: '30%', height: '3%' } }
+      // Feel free to add step 4, step 5, etc. here synced with your left index pages changing!
+    ];
+    
+    let currentStep = 0;
+
+    // --- Unified Step Execution Function ---
+    function runStep(stepIndex) {
+      const step = timelineTimeline[stepIndex];
       
-      // Update image source
-      outputImg.src = currentPageData.src;
+      // Update left page
+      imgLeft.src = leftPages[step.leftIdx];
+      indicatorLeft.textContent = `${step.leftIdx + 1} / ${leftPages.length}`;
+      
+      // Update right image
+      const rightPagesList = [
+        '/screenshot/results_right_1.png',
+        '/screenshot/results_right_2.png',
+        '/screenshot/results_right_3.png'
+      ];
+      outputImg.src = rightPagesList[step.rightIdx];
 
-      // 2. Manage the bounding highlight box
+      // Update highlight box boundary rules
       let box = document.getElementById('highlightBox');
-
-      if (currentPageData.box) {
-        // If box configuration exists, create or update it
+      if (step.box) {
         if (!box) {
           box = document.createElement('div');
           box.id = 'highlightBox';
           box.className = 'highlight-box';
           pdfContainer.appendChild(box);
         }
-        // Assign the targeted coordinates
-        box.style.top = currentPageData.box.top;
-        box.style.left = currentPageData.box.left;
-        box.style.width = currentPageData.box.width;
-        box.style.height = currentPageData.box.height;
+        box.style.top = step.box.top;
+        box.style.left = step.box.left;
+        box.style.width = step.box.width;
+        box.style.height = step.box.height;
       } else {
-        // If the box config is null, remove any existing box
-        if (box) {
-          box.remove();
+        if (box) box.remove();
+      }
+    }
+
+    // --- Click Everywhere Listener ---
+    globalWrapper.addEventListener('click', (e) => {
+      if (currentStep < timelineTimeline.length - 1) {
+        // Stop default slidev tracking *only* while handling internal timelines
+        e.stopPropagation();
+        currentStep++;
+        runStep(currentStep);
+      } else {
+        // Once the internal timeline is maxed out, let the click leak to Slidev
+        // so it changes to the next slide automatically.
+        window.$slidev?.nav.next();
+      }
+    });
+
+    // --- Keypress Event Forwarding ---
+    // Restores standard right-arrow navigation functionality!
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        if (currentStep < timelineTimeline.length - 1) {
+          e.preventDefault();
+          currentStep++;
+          runStep(currentStep);
+        } else {
+          window.$slidev?.nav.next();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentStep > 0) {
+          e.preventDefault();
+          currentStep--;
+          runStep(currentStep);
+        } else {
+          window.$slidev?.nav.prev();
         }
       }
     });

@@ -1,71 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<title>Section: Evaluation</title>
-<style>
-  /* Import a clean corporate font */
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+  <meta charset="utf-8">
+  <title>Goal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: white; color: #111; display: flex; flex-direction: column; }
 
-  *, *::before, *::after { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-  }
+    .panels-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      padding: 40px 20px 14% 20px;
+    }
 
-  html, body { 
-    width: 100%; 
-    height: 100%; 
-    background: #ffffff; 
-    overflow: hidden;
-  }
+    .s2-bg {
+      position: absolute !important;
+      inset: 0;
+      background-image: url('logo_FRI/path4.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 90%;
+      opacity: 0.03;
+      z-index: 0 !important;
+      pointer-events: none;
+    }
 
-  /* Centering Wrapper */
-  .section-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    position: relative; /* Context for z-index layering */
-  }
+    .panels {
+      display: flex; 
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
 
-  /* ── ADDED: Background watermark image configuration ── */
-  .section-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('logo_FRI/path4.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 90%;
-    opacity: 0.05;
-    z-index: 0;
-  }
+    .panel-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
 
-  /* Centered Section Title */
-  .section-title {
-    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    font-size: 3rem;          /* Large presentation scale */
-    font-weight: 800;
-    color: #0107ba;           /* Authoritative corporate blue */
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    position: relative;
-    padding-bottom: 16px;
-    text-align: center;
-    z-index: 2;               /* Keeps text sitting on top of background layer */
-  }
+    .panel-col-label {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: #111;
+    }
 
-</style>
+    .panel-pdf {
+      aspect-ratio: 1 / 1.414;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid #0107ba;
+      box-shadow: 0 4px 20px rgba(1,7,186,0.15);
+      background: #f0f2ff;
+    }
+
+    .panel-output {
+      aspect-ratio: 1 / 1.2;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid #1e8a4a;
+      box-shadow: 0 4px 20px rgba(30,138,74,0.15);
+      background: #f0faf4;
+    }
+
+    .pdf-container {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .pdf-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .highlight-box {
+      position: absolute;
+      border: 1.5px solid #ff4d00d3;
+      background-color: rgba(252, 214, 0, 0.503);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 10;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .page-indicator {
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      font-size: 0.6rem;
+      color: #aaa;
+      background: rgba(255,255,255,0.8);
+      padding: 1px 4px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .panel-output img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .arrow {
+      font-size: 3rem;
+      color: #111;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body>
+  <div class="panels-wrapper">
+    <div class="s2-bg"></div>
 
-<div class="section-container">
-  <h1 class="section-title">Method</h1>
-</div>
- 
+    <div class="panels">
+      <div class="panel-col">
+        <span class="panel-col-label" style="color:#0107ba;">Insurance Proposal</span>
+        <div class="panel-pdf">
+          <div class="pdf-container" id="pdfContainer">
+            <img id="pdfImg" src="/pdf_images/docCatalunya/proposal_catalunya_page-0001.jpg" alt="page 1">
+            <div class="page-indicator" id="pageIndicator">1 / 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="panel-col">
+        <span class="panel-col-label" style="color:#1e8a4a;">Structured Output</span>
+        <div class="panel-output" id="outputPanel">
+          <img id="outputImg" src="/screenshot/results_right_1.png" alt="Structured Output">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const imgLeft = document.getElementById('pdfImg');
+    const indicatorLeft = document.getElementById('pageIndicator');
+    const pdfContainer = document.getElementById('pdfContainer');
+    const outputImg = document.getElementById('outputImg');
+
+    const leftPages = Array.from({length: 8}, (_, i) =>
+      `/pdf_images/docCatalunya/proposal_catalunya_page-${String(i + 1).padStart(4, '0')}.jpg`
+    );
+
+    const timelineTimeline = [
+      { leftIdx: 0, rightIdx: 0, box: null },
+      { leftIdx: 0, rightIdx: 1, box: { top: '25.8%', left: '38%', width: '15%', height: '3%' } },
+      { leftIdx: 0, rightIdx: 2, box: { top: '40%', left: '38%', width: '30%', height: '3%' } }
+    ];
+    
+    let currentStep = 0;
+
+    function runStep(stepIndex) {
+      const step = timelineTimeline[stepIndex];
+      
+      imgLeft.src = leftPages[step.leftIdx];
+      indicatorLeft.textContent = `${step.leftIdx + 1} / ${leftPages.length}`;
+      
+      const rightPagesList = [
+        '/screenshot/results_right_1.png',
+        '/screenshot/results_right_2.png',
+        '/screenshot/results_right_3.png'
+      ];
+      outputImg.src = rightPagesList[step.rightIdx];
+
+      let box = document.getElementById('highlightBox');
+      if (step.box) {
+        if (!box) {
+          box = document.createElement('div');
+          box.id = 'highlightBox';
+          box.className = 'highlight-box';
+          pdfContainer.appendChild(box);
+        }
+        box.style.top = step.box.top;
+        box.style.left = step.box.left;
+        box.style.width = step.box.width;
+        box.style.height = step.box.height;
+      } else {
+        if (box) box.remove();
+      }
+    }
+
+    // ── CHANGED: Automate the loop independently ──
+    // Every 3000ms (3 seconds), advance the loop step.
+    setInterval(() => {
+      currentStep = (currentStep + 1) % timelineTimeline.length;
+      runStep(currentStep);
+    }, 3000); 
+
+  </script>
 </body>
 </html>
