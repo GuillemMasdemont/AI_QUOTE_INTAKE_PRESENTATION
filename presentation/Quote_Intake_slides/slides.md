@@ -173,16 +173,6 @@ layout: iframe
 url: /4-dataset-slide.html
 ---
 
-#---
-#layout: iframe
-#url: /4.0-evaluation-slide.html
-#---
-
-
-#---
-#layout: iframe
-#url: /4.1-manual_dataset.html
-#---
 
 ---
 layout: iframe
