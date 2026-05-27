@@ -171,7 +171,7 @@
                 <h3>Extraction Confidence per Field</h3>
                 
                 <div class="horizontal-row-box" style="background: #f0faf4; border-color: #1e8a4a;">
-                    <div class="intro-text">We say that an answer is confident if the answer was not modified a lot across the pipeline.</div>
+                    <div class="intro-text">We say that an answer is confident if the answer was not modified "a lot" across the pipeline.</div>
                     
                     <div class="row-content-split">
                         <div class="math-block">
@@ -187,6 +187,7 @@
                             <p><strong>OCR / Span:</strong> DocTR logprobs and mismatch metrics.</p>
                             <p><strong>Canonicalization Type:</strong> Penalizes formatting changes.</p>
                             <p><strong>Teacher Retries ($N$):</strong> Penalty for every revision.</p>
+                            <p style="font-style: italic; color: #111; margin-top: 4px;">Conf. range: $\in [0, 100] $</p>
                         </div>
                     </div>
                 </div>
