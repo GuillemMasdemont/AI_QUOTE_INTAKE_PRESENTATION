@@ -25,7 +25,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 40px 80px;
+      padding: 40px 60px; 
       position: relative;
     }
 
@@ -40,70 +40,135 @@
       background-size: 80%;
       opacity: 0.05;
       z-index: 0;
+      pointer-events: none;
     }
 
     .content-wrapper {
       position: relative;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Slide Title - Reduced size as requested */
+    /* Slide Title */
     .title {
       font-size: 2.2rem;
       font-weight: 800;
       color: #0107ba;
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-bottom: 25px;
+      margin-bottom: 40px;
       border-bottom: 3px solid #0107ba;
       display: inline-block;
       padding-bottom: 5px;
+      align-self: flex-start;
     }
 
-    /* Conclusion Bullet Points */
-    .conclusion-list {
+    /* Conclusion Grid System */
+    .conclusion-grid {
       list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 16px; 
+      margin: 0 auto;       
+      width: 100%;          
+      max-width: 960px; 
+      align-items: start;
     }
 
+    /* Fixed dimension structural rectangles */
     .conclusion-item {
       display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-      background: rgba(248, 249, 250, 0.8);
-      padding: 18px 22px;
-      border-radius: 10px;
-      border-left: 5px solid #0107ba;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .icon-box {
-      font-size: 1.5rem;
-      color: #0107ba;
-      margin-right: 20px;
-      width: 40px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; 
+      background: rgba(248, 249, 250, 0.85);
+      padding: 12px 16px; 
+      border-radius: 8px; 
+      border-top: 4px solid #0107ba; 
+      box-shadow: 0 4px 14px rgba(1, 7, 186, 0.04);
       text-align: center;
-      padding-top: 2px;
+      transition: transform 0.2s ease;
+      
+      width: 210px;  
+      height: 160px; 
     }
 
-    /* Subtitles - Smaller font size */
+    .conclusion-item:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Compact Icon Box */
+    .icon-box {
+      font-size: 1.6rem; 
+      color: #0107ba;
+      margin-bottom: 6px;
+    }
+
+    /* Subtitles */
     .text-box h3 {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #0107ba;
-      margin-bottom: 4px;
+      line-height: 1.2;
+      margin-bottom: 6px;
     }
 
-    /* Body text - Smaller font size */
+    /* Subtext styling */
     .text-box p {
-      font-size: 0.95rem;
-      line-height: 1.4;
-      color: #333;
+      font-size: 0.8rem;
+      color: #475569;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* Visual badge for specific metrics */
+    .metric-badge {
+      display: inline-block;
+      background: rgba(1, 7, 186, 0.05);
+      color: #0107ba;
+      padding: 1px 5px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+    
+    .metric-badge-green {
+      background: rgba(30, 138, 74, 0.06);
+      color: #1e8a4a;
+    }
+
+    /* Image area container spanning the full grid width */
+    .image-under-boxes {
+      margin-top: 50px; 
+      display: flex;
+      width: 100%;
+      max-width: 960px;
+      justify-content: space-between; /* Pushes one to the left, one to the right */
+      align-items: center;
+      z-index: 2; 
+    }
+
+    /* Made image1 70% smaller than previous 100px size */
+    .img-left {
+      height: 50px; 
+      max-width: 150px;
+      object-fit: contain;
+    }
+
+    /* Made the insight logo slightly larger than previous 100px size */
+    .img-right {
+      height: 50px; 
+      max-width: 280px;
+      object-fit: contain;
     }
 
     .footer {
       position: absolute;
       bottom: 25px;
-      left: 80px;
+      left: 60px;
       font-size: 0.8rem;
       color: #777;
     }
@@ -115,31 +180,45 @@
     <div class="content-wrapper">
       <h1 class="title">Conclusion</h1>
 
-      <ul class="conclusion-list">
+      <ul class="conclusion-grid">
         <li class="conclusion-item">
-          <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+          <div class="icon-box"><i class="fa-solid fa-hourglass-half"></i></div>
           <div class="text-box">
-            <h3>Our solution</h3>
-            <p>We developed a secure pipeline architecture that produces structured JSON files from insurance documents. Everything respecting data privacy.</p>
+            <h3>Time Savings</h3>
+            <p>Cycle cut from <b>10 min</b> to <span class="metric-badge">2 min</span> per form.</p>
           </div>
         </li>
 
         <li class="conclusion-item">
-          <div class="icon-box"><i class="fa-solid fa-database"></i></div>
+          <div class="icon-box"><i class="fa-solid fa-bullseye"></i></div>
           <div class="text-box">
-            <h3>Accurate on synthetic and manually annotated dataset</h3>
-            <p>We obtain a positive score and high accuracy across different synthetic and manually annotated documents, providing a positive value for the company.</p>
+            <h3>High Accuracy</h3>
+            <p>Baseline score of <span class="metric-badge metric-badge-green">0.647</span> with over <b>80%</b> confidence.</p>
           </div>
         </li>
 
         <li class="conclusion-item">
-          <div class="icon-box"><i class="fa-solid fa-arrow-trend-up"></i></div>
+          <div class="icon-box"><i class="fa-solid fa-snowflake"></i></div>
           <div class="text-box">
-            <h3>Future Research</h3>
-            <p>We want to focus on formalizing completeness on a generated dataset. Other directions, involve fine-tuning specialized models and improving zero-shot prompting.</p>
+            <h3>Enterprise Deployment</h3>
+            <p>Snowflake framework ready for rapid <b>company integration</b>.</p>
+          </div>
+        </li>
+
+        <li class="conclusion-item">
+          <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
+          <div class="text-box">
+            <h3>High Scalability</h3>
+            <p>Pipelines engineered to manage production workloads safely.</p>
           </div>
         </li>
       </ul>
+
+      <div class="image-under-boxes">
+        <img src="logo_FRI/image1.png" alt="University Logo Left" class="img-left">
+        <img src="logo_FRI/In516ht_logo.svg" alt="Insight Logo Right" class="img-right">
+      </div>
+
     </div>
 
     <div class="footer">

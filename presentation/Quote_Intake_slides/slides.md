@@ -165,12 +165,12 @@ url: /2-goal-slide.html
     
 ---
 layout: iframe
-url: /3-pipeline-slide.html
+url: /3-pipeline-slide_data_generation.html
 ---
 
 ---
 layout: iframe
-url: /4-dataset-slide.html
+url: /3-pipeline-slide_extraction_pipeline.html
 ---
 
 

@@ -19,7 +19,7 @@
       align-items: center;
       justify-content: center;
       background: white;
-      padding: 15px;
+      padding: 20px;
     }
 
     .s2-bg {
@@ -35,8 +35,8 @@
     }
 
     .container-layout {
-      width: 90%;
-      max-width: 950px; /* Slightly increased to perfectly balance the fixed-width split */
+      width: 95%;
+      max-width: 1200px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -44,17 +44,17 @@
     }
 
     .panel-col-label {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: #0107ba;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
       text-align: left;
     }
 
     .panels {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
 
     .panel-col {
@@ -64,25 +64,27 @@
     }
 
     .horizontal-row-box {
+      display: flex;
+      flex-direction: column;
       background: #f0f2ff;
       border: 1px solid #0107ba;
       border-radius: 8px;
-      padding: 15px 20px;
+      padding: 18px 20px; /* Enhanced internal box padding */
+      gap: 16px;
     }
 
-    /* Side-by-side arrangement for formula and bar */
-    .flex-row-container {
+    /* top row: description + formula pill */
+    .top-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 16px;
     }
 
-    /* Fixed width explicitly aligns the bar boundaries */
-    .formula-side {
-      flex: 0 0 420px; 
-      display: flex;
-      justify-content: flex-start;
+    .intro-text {
+      font-size: 1.1rem; /* Increased text font size */
+      color: #111;
+      line-height: 1.4;
     }
 
     .formula-pill {
@@ -92,11 +94,10 @@
       background: rgba(1, 7, 186, 0.07);
       border: 1px solid rgba(1, 7, 186, 0.22);
       border-radius: 6px;
-      padding: 10px 18px;
-      font-size: 1.05rem;
+      padding: 6px 16px;
+      font-size: 0.9rem; /* Marginally adjusted to balance text size changes */
       color: #0107ba;
-      width: 100%; /* Force pills to look anchored together */
-      justify-content: center;
+      flex-shrink: 0;
     }
 
     .formula-pill-green {
@@ -106,7 +107,7 @@
     }
 
     h3 {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       color: #111;
       border-bottom: 2px solid #111;
       display: inline-block;
@@ -114,36 +115,28 @@
       align-self: flex-start;
     }
 
-    /* ── BAR STYLES ── */
-    .bar-side {
-      flex: 1; /* Both take exactly the remaining layout space uniformly */
+    /* ── SHARED BAR STYLES ── */
+    .bar-section {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-    }
-
-    .bar-title {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #475569;
-      text-align: center;
-      margin-bottom: 2px;
+      gap: 5px;
+      width: 80%; /* Reduced width of the bars to 80% */
+      margin: 0 auto; /* Horizontally center the narrower bars inside the box */
     }
 
     .bar-end-labels {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem; 
+      font-size: 0.75rem;
       font-weight: 600;
       color: #666;
     }
 
+    /* Score bar: -1 to +1 with center tick */
     .score-bar-track {
       position: relative;
-      height: 22px;
-      border-radius: 11px;
+      height: 28px;
+      border-radius: 14px;
       background: linear-gradient(to right, #d93b3b 0%, #e8824e 28%, #d4c84a 50%, #6ab84e 72%, #2a8f3f 100%);
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.12);
     }
@@ -153,24 +146,39 @@
       content: '';
       position: absolute;
       left: 50%;
-      top: 3px; bottom: 3px;
+      top: 4px; bottom: 4px;
       width: 2px;
       background: rgba(255,255,255,0.6);
       transform: translateX(-50%);
     }
 
+    /* Confidence bar: 0 to 100 */
     .conf-bar-track {
       position: relative;
-      height: 22px;
-      border-radius: 11px;
+      height: 28px;
+      border-radius: 14px;
       background: linear-gradient(to right, #c0392b 0%, #e67e22 25%, #f1c40f 50%, #2ecc71 75%, #1e8a4a 100%);
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* shared indicator dot */
+    .bar-indicator {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid rgba(0,0,0,0.3);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+      transition: left 0.6s cubic-bezier(.4,0,.2,1);
     }
 
     .bar-minmax {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem; 
+      font-size: 0.78rem;
       font-weight: 700;
     }
     .bar-minmax .neg { color: #c0392b; }
@@ -182,33 +190,35 @@
     <div class="s2-bg"></div>
 
     <div class="container-layout">
-      <span class="panel-col-label">Evaluation Logic</span>
+      <span class="panel-col-label">Evaluation</span>
 
       <div class="panels">
 
         <div class="panel-col">
           <h3>Extraction Score</h3>
           <div class="horizontal-row-box">
-            <div class="flex-row-container">
-              <div class="formula-side">
-                <div class="formula-pill">
-                  $\mathcal{S} = \displaystyle\sum_{i=1}^{32} w_i \cdot \sigma(\hat{y}_i,\, y_i)$
-                </div>
+            <div class="top-row">
+              <div class="intro-text">
+                Weighted sum of per-field correctness: $\sigma \in \{-1,\, 0,\, +1\}$ for incorrect, missing, or correct.
               </div>
-              
-              <div class="bar-side">
-                <div class="bar-title">Score</div>
-                <div class="bar-end-labels">
-                  <span>Incorrect</span>
-                  <span>Missing</span>
-                  <span>Correct</span>
-                </div>
-                <div class="score-bar-track"></div>
-                <div class="bar-minmax">
-                  <span class="neg">−1</span>
-                  <span style="color:#666; font-weight:700; font-size:0.85rem;">0</span>
-                  <span class="pos">+1</span>
-                </div>
+              <div class="formula-pill">
+                $\mathcal{S} = \displaystyle\sum_{i=1}^{32} w_i \cdot \sigma(\hat{y}_i,\, y_i)$
+              </div>
+            </div>
+
+            <div class="bar-section">
+              <div class="bar-end-labels">
+                <span>Incorrect</span>
+                <span>Missing</span>
+                <span>Correct</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="bar-indicator" id="scoreIndicator" style="left:20%"></div>
+              </div>
+              <div class="bar-minmax">
+                <span class="neg">−1</span>
+                <span style="color:#666; font-weight:700; font-size:0.78rem;">0</span>
+                <span class="pos">+1</span>
               </div>
             </div>
           </div>
@@ -217,24 +227,26 @@
         <div class="panel-col">
           <h3>Extraction Confidence per Field</h3>
           <div class="horizontal-row-box" style="background:#f0faf4; border-color:#1e8a4a;">
-            <div class="flex-row-container">
-              <div class="formula-side">
-                <div class="formula-pill formula-pill-green">
-                  $\text{Conf} = \text{OCR} \times \text{Span} \times \text{Canon.} \times k^{N}$
-                </div>
+            <div class="top-row">
+              <div class="intro-text">
+                Product of pipeline quality signals — penalised by formatting changes and teacher retries.
               </div>
-              
-              <div class="bar-side">
-                <div class="bar-title" style="color: #1e8a4a;">Confidence</div>
-                <div class="bar-end-labels">
-                  <span>Low confidence</span>
-                  <span>High confidence</span>
-                </div>
-                <div class="conf-bar-track"></div>
-                <div class="bar-minmax">
-                  <span class="neg">0</span>
-                  <span class="pos">100</span>
-                </div>
+              <div class="formula-pill formula-pill-green">
+                $\text{Conf} = \text{Conf}_\text{OCR} \times \text{Conf}_\text{Span} \times \text{Canon.} \times (0.85)^{N}$
+              </div>
+            </div>
+
+            <div class="bar-section">
+              <div class="bar-end-labels">
+                <span>Low confidence</span>
+                <span>High confidence</span>
+              </div>
+              <div class="conf-bar-track">
+                <div class="bar-indicator" id="confIndicator" style="left:20%"></div>
+              </div>
+              <div class="bar-minmax">
+                <span class="neg">0</span>
+                <span class="pos">100</span>
               </div>
             </div>
           </div>
@@ -255,6 +267,13 @@
         ],
         throwOnError: false
       });
+
+      setTimeout(() => {
+        // Score +0.6 → (0.6+1)/2 * 100 = 80%
+        document.getElementById('scoreIndicator').style.left = '80%';
+        // Conf 75 → 75%
+        document.getElementById('confIndicator').style.left = '75%';
+      }, 300);
     });
   </script>
 </body>

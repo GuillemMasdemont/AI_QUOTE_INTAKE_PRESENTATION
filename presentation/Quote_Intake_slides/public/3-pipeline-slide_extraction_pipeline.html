@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Extraction Pipeline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:100%; height:100%; background:#fff; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; overflow:hidden; }
+  #root { position:relative; width:100%; height:100%; display:flex; flex-direction:column; padding:30px 40px 15px; gap:15px; outline:none; align-items:center; justify-content:center; }
+  .s2-bg { position:absolute!important; inset:0; background-image:url('logo_FRI/path4.png'); background-repeat:no-repeat; background-position:center; background-size:90%; opacity:0.03; z-index:0!important; pointer-events:none; }
+  .slide-title { text-align:center; font-size:36px; font-weight:800; color:#0107ba; flex-shrink:0; letter-spacing:.5px; margin-bottom:10px; width:100%; position:relative; z-index:2; }
+  #main-area { flex:1; min-height:0; display:flex; gap:8px; width:100%; max-width:1100px; justify-content:center; position:relative; z-index:2; }
+  #left-col { flex:1; display:flex; flex-direction:column; gap:8px; min-height:0; align-items:center; }
+  #canvas { width:100%; flex:1; min-height:300px; display:flex; justify-content:center; }
+  #canvas svg { width:100%; height:100%; display:block; overflow:visible; }
+  .controls { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; width:100%; max-width:960px; }
+  .dots { display:flex; gap:6px; flex-wrap:wrap; }
+  .dot { width:9px; height:9px; border-radius:50%; background:#ddd; transition:background .3s; flex-shrink:0; }
+  .dot.active { background:#0107ba; }
+  .dot.cur { box-shadow:0 0 0 2px #fff,0 0 0 3.5px #0107ba; }
+  .counter { font-size:13px; font-weight:bold; opacity:.6; }
+  #traveler-doc, #traveler-box { transition:transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+  .media-box-container { width:100%; height:100%; display:flex; flex-direction:column; padding:8px; background:rgba(255,255,255,0.98); border:2.5px solid #0107ba; border-radius:8px; box-shadow:0 6px 16px rgba(0,0,0,0.22); }
+  .media-header-label { font-size:11px; font-weight:bold; text-transform:uppercase; margin-bottom:5px; color:#111; border-bottom:1.5px solid #e2e8f0; padding-bottom:3px; flex-shrink:0; }
+  .media-content-stream { flex:1; overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column; gap:6px; padding-right:2px; }
+  .media-content-stream::-webkit-scrollbar { width:4px; }
+  .media-content-stream::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:2px; }
+  .stream-img { width:100%; height:auto; border-radius:4px; border:1px solid #cbd5e1; display:block; background:#fafafa; }
+  .stream-text { font-size:10px; line-height:1.3; color:#334155; padding:2px 1px; word-break:break-word; }
+</style>
+</head>
+<body>
+<div id="root" tabindex="0">
+  <div class="s2-bg"></div>
+  <div class="slide-title">Extraction Pipeline</div>
+  <div id="main-area">
+    <div id="left-col">
+      <div id="canvas">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="-5 -50 975 455" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="controls">
+        <div class="dots" id="dots"></div>
+        <div class="counter" id="counter">Step 1 / 5</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+function mk(tag,attrs){const e=document.createElementNS(NS,tag);if(attrs)for(const[k,v]of Object.entries(attrs))e.setAttribute(k,String(v));return e;}
+function tx(el,s){el.textContent=s;return el;}
+
+const VW=960;
+const Y_FWD=0,Y_MID=180,Y_BWD=360;
+const IOW=76,IOH=76;
+const X_PDF=48,X_JSON=VW-50;
+const FWD_L=X_PDF+IOW/2+14,FWD_R=X_JSON-IOW/2-14;
+const FWD_T=Y_FWD-38,FWD_B=Y_FWD+38,FWD_PAD=8,FWD_GAP=50;
+const FBW=(FWD_R-FWD_L-FWD_PAD*2-FWD_GAP*2)/3;
+const FBH=(FWD_B-FWD_T)-FWD_PAD*2-12;
+const FBY=FWD_T+FWD_PAD+12+FBH/2;
+const FX1=FWD_L+FWD_PAD+FBW/2,FX2=FX1+FBW+FWD_GAP,FX3=FX2+FBW+FWD_GAP;
+const BWD_T=Y_BWD-32,BWD_B=Y_BWD+32,BWD_PAD=8,BWD_GAP=46;
+const BBW=(FWD_R-FWD_L-BWD_PAD*2-BWD_GAP*2)/3;
+const BBH=(BWD_B-BWD_T)-BWD_PAD*2-10;
+const BBY=BWD_T+BWD_PAD+10+BBH/2;
+const BX1=FWD_R-BWD_PAD-BBW/2,BX2=BX1-BBW-BWD_GAP,BX3=BX2-BBW-BWD_GAP;
+
+let lBack,lArr,lNodes,lTravel;
+
+function buildSVG(){
+  const svg=$('svg');
+  const defs=mk('defs');
+  function marker(id,color){const m=mk('marker',{id,markerWidth:10,markerHeight:9,refX:8.5,refY:4.5,orient:'auto'});m.appendChild(mk('path',{d:'M0,0 L9,4.5 L0,9 Z',fill:color}));return m;}
+  [['mLoop','#0107ba'],['mGrey','#1a1a1a'],['mNormal','#d4d4d4']].forEach(([id,c])=>defs.appendChild(marker(id,c)));
+  const sf=mk('filter',{id:'shadow',x:'-10%',y:'-10%',width:'120%',height:'130%'});
+  sf.appendChild(mk('feDropShadow',{dx:'0',dy:'2',stdDeviation:'3','flood-color':'rgba(0,0,0,0.12)'}));defs.appendChild(sf);
+  const gf=mk('filter',{id:'gTrav',x:'-60%',y:'-60%',width:'220%',height:'220%'});
+  gf.appendChild(mk('feGaussianBlur',{'in':'SourceGraphic',stdDeviation:'4',result:'b'}));
+  const fm=mk('feMerge');['b','SourceGraphic'].forEach(r=>{const n=mk('feMergeNode');n.setAttribute('in',r);fm.appendChild(n);});
+  gf.appendChild(fm);defs.appendChild(gf);
+  svg.appendChild(defs);
+
+  lBack=svg.appendChild(mk('g'));lArr=svg.appendChild(mk('g'));lNodes=svg.appendChild(mk('g'));lTravel=svg.appendChild(mk('g'));
+
+  function arrow(id,d){lArr.appendChild(mk('path',{id:'arr-'+id,d,fill:'none',stroke:'#d4d4d4','stroke-width':2.8,'stroke-linecap':'round','stroke-linejoin':'round','marker-end':'url(#mNormal)'}));}
+  const R=20;
+  arrow('json-b1',`M${X_JSON},${Y_MID+IOH/2} L${X_JSON},${BBY-R} Q${X_JSON},${BBY} ${X_JSON-R},${BBY} L${BX1+BBW/2},${BBY}`);
+  arrow('b1-b2', `M${BX1-BBW/2},${BBY} L${BX2+BBW/2},${BBY}`);
+  arrow('b2-b3', `M${BX2-BBW/2},${BBY} L${BX3+BBW/2},${BBY}`);
+  arrow('b3-pdf',`M${BX3-BBW/2},${BBY} L${X_PDF+R},${BBY} Q${X_PDF},${BBY} ${X_PDF},${BBY-R} L${X_PDF},${Y_MID+IOH/2}`);
+  arrow('pdf-ocr',`M${X_PDF},${Y_MID-IOH/2} L${X_PDF},${FBY+R} Q${X_PDF},${FBY} ${X_PDF+R},${FBY} L${FX1-FBW/2},${FBY}`);
+  arrow('ocr-cx', `M${FX1+FBW/2},${FBY} L${FX2-FBW/2},${FBY}`);
+  arrow('cx-tp',  `M${FX2+FBW/2},${FBY} L${FX3-FBW/2},${FBY}`);
+  arrow('tp-json',`M${FX3+FBW/2},${FBY} L${X_JSON-R},${FBY} Q${X_JSON},${FBY} ${X_JSON},${FBY+R} L${X_JSON},${Y_MID-IOH/2}`);
+
+  function drawNode(cx,cy,w,h,title,fill,stroke,titleColor,imgSrc,opacity){
+    const g=mk('g');
+    if(opacity!==undefined)g.setAttribute('opacity',String(opacity));
+    g.appendChild(mk('rect',{x:cx-w/2,y:cy-h/2,width:w,height:h,rx:10,fill,stroke,'stroke-width':1.5,filter:'url(#shadow)'}));
+    let startLine=0,sy=cy;
+    if(imgSrc){
+      g.appendChild(mk('image',{href:imgSrc,x:cx-27,y:cy-27,width:54,height:54}));
+      startLine=1;sy=cy+h/2-22;
+    } else {
+      const lines=title.split('\n'),totalH=lines.length*18;sy=cy-totalH/2+9;
+    }
+    title.split('\n').forEach((l,i)=>{
+      if(i>=startLine){
+        const ly=imgSrc?sy+(i-startLine)*18:sy+i*18;
+        tx(g.appendChild(mk('text',{x:cx,y:ly,'text-anchor':'middle','dominant-baseline':'middle','font-size':13,'font-weight':'bold','font-family':'Plus Jakarta Sans',fill:titleColor||stroke})),l);
+      }
+    });
+    lNodes.appendChild(g);
+  }
+
+  drawNode(X_PDF, Y_MID,IOW,IOH,'', '#f8fafc','#334155','#1e293b','pipeline_images/doc_5.png');
+  drawNode(X_JSON,Y_MID,IOW,IOH,'','#eff6ff','#0107ba','#1e293b','pipeline_images/json_out_2.png');
+  // Forward (extractor) nodes — full opacity
+  drawNode(FX1,FBY,FBW,FBH,'Optical Character\nRecognition','#e8f0fe','#0107ba');
+  drawNode(FX2,FBY,FBW,FBH,'Cortex\nExtraction',           '#e8f0fe','#0107ba');
+  drawNode(FX3,FBY,FBW,FBH,'Teacher\nPass',                '#e8f0fe','#0107ba');
+  // Backward (generator) nodes — dimmed
+  drawNode(BX1,BBY,BBW,BBH,'Synth JSON',   '#f7f7f7','#1a1a1a',null,null,0.18);
+  drawNode(BX2,BBY,BBW,BBH,'Plan Layout',  '#f7f7f7','#1a1a1a',null,null,0.18);
+  drawNode(BX3,BBY,BBW,BBH,'PDF Rendering','#f7f7f7','#1a1a1a',null,null,0.18);
+
+  // Traveler doc
+  const tgDoc=mk('g',{id:'traveler-doc',style:'display:none'});
+  const dv=mk('g');
+  dv.appendChild(mk('circle',{cx:0,cy:0,r:26,fill:'none',stroke:'#0107ba','stroke-width':4,opacity:.22,filter:'url(#gTrav)'}));
+  dv.appendChild(mk('rect',{x:'-10',y:'-14',width:'20',height:'28',rx:'2',fill:'rgba(0,0,0,0.1)',transform:'translate(2,2)'}));
+  dv.appendChild(mk('path',{d:'M-10,-15 L5,-15 L11,-9 L11,15 L-10,15 Z',fill:'white',stroke:'#0107ba','stroke-width':'2'}));
+  dv.appendChild(mk('path',{d:'M5,-15 L5,-9 L11,-9 Z',fill:'#cbd5e1',stroke:'#0107ba','stroke-width':'1.2'}));
+  tgDoc.appendChild(dv);lTravel.appendChild(tgDoc);
+
+  const tgBox=mk('g',{id:'traveler-box',style:'display:none'});
+  const fo=mk('foreignObject',{x:0,y:0,width:240,height:240});
+  const hc=document.createElement('div');
+  hc.className='media-box-container';hc.id='typing-container';
+  hc.innerHTML=`<div class="media-header-label" id="box-step-label">Step</div><div class="media-content-stream" id="media-stream"></div>`;
+  fo.appendChild(hc);tgBox.appendChild(fo);lTravel.appendChild(tgBox);
+  hc.addEventListener('keydown',e=>e.stopPropagation());
+}
+
+const TRAVELER_STOPS=[
+  {x:X_PDF, y:Y_MID, boxX:100, boxY:60, label:'Input Document X',          img1:'pipeline_images/proposal_noisy.png',         text1:''},
+  {x:FX1,   y:FBY,   boxX:100, boxY:55, label:'OCR Parsing',                img1:'pipeline_images/proposal_noisy_doctr.jpeg',  text1:''},
+  {x:FX2,   y:FBY,   boxX:350, boxY:55, label:'Cortex Extractor',           img1:'pipeline_images/extraction_v2.png',          text1:''},
+  {x:FX3,   y:FBY,   boxX:620, boxY:55, label:'Canonicalisation & Teacher', img1:'pipeline_images/canonicalisation_v2.png',    text1:''},
+  {x:X_JSON,y:Y_MID, boxX:620, boxY:65, label:'Output Y',                   img1:'pipeline_images/output_y_v3.png',            text1:''}
+];
+
+const ACTIVE_ARROWS=['arr-pdf-ocr','arr-ocr-cx','arr-cx-tp','arr-tp-json'];
+const DIM_ARROWS   =['arr-json-b1','arr-b1-b2','arr-b2-b3','arr-b3-pdf'];
+let step=0;
+
+function updateTraveler(s){
+  const tgDoc=$('traveler-doc'),tgBox=$('traveler-box');
+  tgDoc.style.display='';tgBox.style.display='';
+  const d=TRAVELER_STOPS[s];
+  tgDoc.setAttribute('transform',`translate(${d.x},${d.y})`);
+  tgBox.setAttribute('transform',`translate(${d.boxX},${d.boxY})`);
+  const stream=$('media-stream'),label=$('box-step-label');
+  if(stream&&label){
+    label.textContent=d.label;
+    stream.innerHTML=(d.html1||`<img class="stream-img" src="${d.img1}" alt="">`)
+      +`<div class="stream-text">${d.text1||''}</div>`;
+    stream.scrollTop=0;
+  }
+}
+
+function render(){
+  ACTIVE_ARROWS.forEach((id,idx)=>{
+    const el=$(id);if(!el)return;
+    if(idx<step){el.setAttribute('stroke','#0107ba');el.setAttribute('marker-end','url(#mLoop)');el.setAttribute('opacity','1');}
+    else{el.setAttribute('stroke','#cbd5e1');el.setAttribute('marker-end','url(#mNormal)');el.setAttribute('opacity','0.45');}
+  });
+  DIM_ARROWS.forEach(id=>{
+    const el=$(id);if(!el)return;
+    el.setAttribute('stroke','#e8eaed');el.setAttribute('marker-end','url(#mNormal)');el.setAttribute('opacity','0.18');
+  });
+  updateTraveler(step);
+  const c=$('dots');c.innerHTML='';
+  TRAVELER_STOPS.forEach((_,i)=>{const d=document.createElement('div');d.className=`dot ${i<=step?'active':''} ${i===step?'cur':''}`;c.appendChild(d);});
+  $('counter').textContent=`Step ${step+1} / ${TRAVELER_STOPS.length}`;
+}
+
+function next(){if(step<TRAVELER_STOPS.length-1){step++;render();}}
+function prev(){if(step>0){step--;render();}}
+
+buildSVG();render();
+
+$('canvas').addEventListener('click',e=>{if(e.target.closest('.media-box-container'))return;next();});
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.code==='ArrowRight'){e.preventDefault();next();}
+  if(e.code==='ArrowLeft'){e.preventDefault();prev();}
+});
+</script>
+</body>
+</html>
