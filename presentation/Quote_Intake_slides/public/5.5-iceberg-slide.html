@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Under the Hood</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: white; }
+
+  .slide {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .bg-watermark {
+    position: absolute;
+    inset: 0;
+    background-image: url('logo_FRI/path4.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    opacity: 0.03;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── ABOVE WATER ── */
+  .above-water {
+    background: white;
+    padding: 36px 64px 28px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .slide-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0107ba;
+    letter-spacing: 1px;
+  }
+
+  /* ── WATERLINE ── */
+  .waterline-wrap {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    line-height: 0;
+  }
+
+  /* ── BELOW WATER ── */
+  .below-water {
+    flex: 1;
+    background: linear-gradient(170deg, #dde8f8 0%, #c5d6f2 60%, #b4c8ed 100%);
+    padding: 22px 64px 18px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .decisions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    flex: 1;
+    align-content: center;
+  }
+
+  .decision-card {
+    background: rgba(255,255,255,0.82);
+    border: 1.5px solid rgba(1,7,186,0.12);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    pointer-events: none;
+  }
+
+  .decision-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #0107ba;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg { width: 21px; height: 21px; color: white; }
+
+  .card-text { flex: 1; min-width: 0; }
+
+  .card-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 0.78rem;
+    color: #475569;
+    line-height: 1.45;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0;
+    padding-top: 18px;
+  }
+
+  .progress-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(1,7,186,0.2);
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .progress-dot.done  { background: #0107ba; }
+  .progress-dot.active { background: #0107ba; transform: scale(1.45); }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="bg-watermark"></div>
+
+  <!-- ABOVE WATER -->
+  <div class="above-water">
+    <div class="slide-title">UNDER THE HOOD</div>
+  </div>
+
+  <!-- WATERLINE -->
+  <div class="waterline-wrap">
+    <svg width="100%" height="32" viewBox="0 0 1440 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,16 C180,4 360,28 540,16 C720,4 900,28 1080,16 C1260,4 1380,24 1440,16 L1440,32 L0,32 Z" fill="#dde8f8"/>
+      <path d="M0,16 C180,4 360,28 540,16 C720,4 900,28 1080,16 C1260,4 1380,24 1440,16"
+            fill="none" stroke="#94a3b8" stroke-width="1.5" opacity="0.55"/>
+    </svg>
+  </div>
+
+  <!-- BELOW WATER -->
+  <div class="below-water">
+    <div class="decisions-grid">
+
+      <!-- Pair 0 -->
+      <div class="decision-card" data-pair="0">
+        <div class="card-icon">
+          <!-- Layers / stack icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">One platform, zero friction</div>
+          <div class="card-desc">GPU server, OCR service, and Streamlit app are all dockerized and run together inside Snowpark Container Services — one ecosystem, shared secrets, and no glue code between platforms</div>
+        </div>
+      </div>
+
+      <div class="decision-card" data-pair="0">
+        <div class="card-icon">
+          <!-- Database / cache icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Run once, reuse forever</div>
+          <div class="card-desc">Page images, OCR output, and matched field positions are all cached to Snowflake stage after the first run — reloading results is instant, no recomputation needed</div>
+        </div>
+      </div>
+
+      <!-- Pair 1 -->
+      <div class="decision-card" data-pair="1">
+        <div class="card-icon">
+          <!-- Target / precision icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Right value, not just any match</div>
+          <div class="card-desc">When the same value appears multiple times in a document, the system picks the occurrence whose row label best matches the field name — not just the first fuzzy hit</div>
+        </div>
+      </div>
+
+      <div class="decision-card" data-pair="1">
+        <div class="card-icon">
+          <!-- Loop / feedback icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Corrections captured, ready for training</div>
+          <div class="card-desc">Every user flag is stored in Snowflake with field key, extracted value, and suggested fix — the feedback dataset is being built now, ready to drive future fine-tuning</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Progress dots -->
+    <div class="progress-row" id="progress">
+      <div class="progress-dot" data-step="0"></div>
+      <div class="progress-dot" data-step="1"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let revealed = -1;
+  const PAIRS = 2;
+
+  function showPair(idx) {
+    document.querySelectorAll(`.decision-card[data-pair="${idx}"]`).forEach((c, i) => {
+      setTimeout(() => c.classList.add('visible'), i * 100);
+    });
+  }
+
+  function updateDots(idx) {
+    document.querySelectorAll('.progress-dot').forEach((d, i) => {
+      d.classList.remove('active', 'done');
+      if (i < idx) d.classList.add('done');
+      else if (i === idx) d.classList.add('active');
+    });
+  }
+
+  function advance() {
+    if (revealed < PAIRS - 1) {
+      revealed++;
+      showPair(revealed);
+      updateDots(revealed);
+    } else {
+      revealed = -1;
+      document.querySelectorAll('.decision-card').forEach(c => c.classList.remove('visible'));
+      updateDots(-1);
+    }
+  }
+
+  document.querySelector('.slide').addEventListener('click', advance);
+  document.addEventListener('keydown', e => {
+    if (e.code === 'ArrowRight' || e.code === 'Space') { e.preventDefault(); advance(); }
+  });
+
+  updateDots(-1);
+</script>
+</body>
+</html>

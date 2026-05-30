@@ -131,18 +131,18 @@ function buildSVG(){
 
   // Multi-document dataset overlay
   const dsg=mk('g',{id:'dataset-visual'});
-  dsg.appendChild(mk('rect',{x:X_PDF-IOW/2-4,y:Y_MID-IOH/2-4,width:IOW+8,height:IOH+8,rx:13,fill:'white',filter:'url(#shadow)',stroke:'#334155','stroke-width':1.5}));
+  dsg.appendChild(mk('rect',{x:X_PDF-IOW/2,y:Y_MID-IOH/2,width:IOW,height:IOH,rx:10,fill:'rgba(255,255,255,0.15)',filter:'url(#shadow)',stroke:'#334155','stroke-width':1.5}));
   const cols=[X_PDF-21,X_PDF,X_PDF+21],rows=[Y_MID-16,Y_MID+16];
   const dw=16,dh=22;
   cols.forEach(cx=>rows.forEach(cy=>{
     const dg=mk('g');
-    dg.appendChild(mk('rect',{x:cx-dw/2+1,y:cy-dh/2+1,width:dw,height:dh,rx:2,fill:'rgba(0,0,0,0.09)'}));
-    dg.appendChild(mk('rect',{x:cx-dw/2,y:cy-dh/2,width:dw,height:dh,rx:2,fill:'white',stroke:'#334155','stroke-width':1}));
-    dg.appendChild(mk('path',{d:`M${cx+dw/2-5},${cy-dh/2} L${cx+dw/2-5},${cy-dh/2+5} L${cx+dw/2},${cy-dh/2+5} Z`,fill:'#cbd5e1'}));
-    [cy-6,cy-1,cy+4].forEach(ly=>dg.appendChild(mk('line',{x1:cx-dw/2+3,y1:ly,x2:cx+dw/2-3,y2:ly,stroke:'#94a3b8','stroke-width':0.8})));
+    dg.appendChild(mk('rect',{x:cx-dw/2+1,y:cy-dh/2+1,width:dw,height:dh,rx:2,fill:'rgba(0,0,0,0.22)'}));
+    dg.appendChild(mk('rect',{x:cx-dw/2,y:cy-dh/2,width:dw,height:dh,rx:2,fill:'white',stroke:'#1e293b','stroke-width':1.5}));
+    dg.appendChild(mk('path',{d:`M${cx+dw/2-5},${cy-dh/2} L${cx+dw/2-5},${cy-dh/2+5} L${cx+dw/2},${cy-dh/2+5} Z`,fill:'#64748b'}));
+    [cy-6,cy-1,cy+4].forEach(ly=>dg.appendChild(mk('line',{x1:cx-dw/2+3,y1:ly,x2:cx+dw/2-3,y2:ly,stroke:'#475569','stroke-width':1.2})));
     dsg.appendChild(dg);
   }));
-  const lb=mk('text',{id:'dataset-label',x:X_PDF,y:Y_MID+IOH/2+13,'text-anchor':'middle','font-size':10,'font-weight':'bold','font-family':'Plus Jakarta Sans',fill:'#334155'});
+  const lb=mk('text',{id:'dataset-label',x:X_PDF,y:Y_MID-IOH/2-12,'text-anchor':'middle','font-size':12,'font-weight':'bold','font-family':'Plus Jakarta Sans',fill:'#334155'});
   lb.textContent='Dataset';
   dsg.appendChild(lb);
   lNodes.appendChild(dsg);
