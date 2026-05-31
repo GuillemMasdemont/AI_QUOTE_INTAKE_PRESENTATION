@@ -138,6 +138,23 @@
       pointer-events: auto;
     }
 
+    .middle-slot .ai-box-sad {
+      background: #fff5f5;
+      border-color: #e8824e;
+      opacity: 0;
+      transform: scale(0.94);
+      pointer-events: none;
+    }
+
+    .middle-slot .ai-box-sad .box-icon { color: #d96f2e; }
+    .middle-slot .ai-box-sad .box-label { color: #b85020; }
+
+    .middle-slot .ai-box-sad.visible {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
     .middle-slot .insurer-box.hidden {
       opacity: 0;
       transform: scale(0.94);
@@ -202,6 +219,30 @@
       pointer-events: auto;
     }
 
+    .problem-box.data-version {
+      position: absolute;
+      inset: 0;
+      background: #fef5ec;
+      border-color: #e8824e;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .problem-slot.data .problem-version {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .problem-slot.data .benefit-version {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .problem-slot.data .data-version {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .problem-icon-wrap {
       flex-shrink: 0;
       width: 46px;
@@ -243,6 +284,39 @@
       font-size: 0.85rem;
       color: #444;
       line-height: 1.35;
+    }
+
+    .output-icons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .output-icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      border: 1.5px solid #c8cef5;
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px rgba(1, 7, 186, 0.09);
+      width: 56px;
+    }
+
+    .output-icon-card svg {
+      width: 26px;
+      height: 26px;
+      color: #0107ba;
+    }
+
+    .output-icon-card span {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #0107ba;
+      letter-spacing: 0.6px;
     }
 
     /* ── NAV ── */
@@ -383,6 +457,39 @@
             </svg>
             <div class="box-label">INSURER + AI</div>
           </div>
+
+          <div class="box ai-box-sad" id="aiBoxSad">
+            <svg class="box-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Sad head (left side) -->
+              <circle cx="30" cy="24" r="10" fill="white"/>
+              <!-- Sad eyebrows: inner corners low -->
+              <path d="M23 19 Q26 22 29 20" stroke-width="2" fill="none"/>
+              <path d="M31 20 Q34 22 37 19" stroke-width="2" fill="none"/>
+              <!-- Frown -->
+              <path d="M24 30 Q30 24 36 30" stroke-width="2.2" fill="none"/>
+              <!-- Neck + shoulders -->
+              <line x1="30" y1="34" x2="30" y2="42"/>
+              <path d="M18 50 Q18 42 30 42 Q42 42 42 50" fill="white" stroke-width="2"/>
+
+              <!-- AI Monitor with "?" -->
+              <rect x="52" y="26" width="36" height="28" rx="3" fill="white" stroke-width="2.5"/>
+              <rect x="55" y="29" width="30" height="20" rx="2" fill="currentColor" fill-opacity="0.08" stroke="none"/>
+              <text x="70" y="44" text-anchor="middle" font-size="18" font-weight="800" stroke="none" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif">?</text>
+              <circle cx="57" cy="31" r="1.2" fill="currentColor" stroke="none"/>
+              <circle cx="83" cy="31" r="1.2" fill="currentColor" stroke="none"/>
+              <line x1="70" y1="54" x2="70" y2="63"/>
+              <line x1="62" y1="63" x2="78" y2="63"/>
+
+              <!-- Desk -->
+              <rect x="12" y="63" width="76" height="5" rx="2"/>
+              <line x1="20" y1="68" x2="20" y2="80"/>
+              <line x1="80" y1="68" x2="80" y2="80"/>
+
+              <!-- Arm dropping away from monitor -->
+              <path d="M38 48 Q44 56 50 52" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="box-label">INSURER + AI</div>
+          </div>
         </div>
 
         <!-- Arrow: output -->
@@ -395,16 +502,37 @@
 
         <!-- Structured output -->
         <div class="box">
-          <svg class="box-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round">
-            <rect x="22" y="18" width="56" height="68" rx="4" fill="white"/>
-            <rect x="22" y="18" width="56" height="14" rx="4" fill="#0107ba" fill-opacity="0.15" stroke="none"/>
-            <line x1="22" y1="32" x2="78" y2="32"/>
-            <line x1="22" y1="46" x2="78" y2="46"/>
-            <line x1="22" y1="60" x2="78" y2="60"/>
-            <line x1="22" y1="74" x2="78" y2="74"/>
-            <line x1="50" y1="32" x2="50" y2="86"/>
-          </svg>
-          <div class="box-label">STRUCTURED<br>TABULAR OUTPUT</div>
+          <div class="output-icons">
+            <!-- JSON -->
+            <div class="output-icon-card" style="transform: translateY(-7px)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 9L4 12L8 15"/>
+                <path d="M16 9L20 12L16 15"/>
+                <line x1="14" y1="5" x2="10" y2="19"/>
+              </svg>
+              <span>JSON</span>
+            </div>
+            <!-- CSV -->
+            <div class="output-icon-card" style="transform: translateY(5px)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="3" y1="15" x2="21" y2="15"/>
+                <line x1="9" y1="9" x2="9" y2="21"/>
+              </svg>
+              <span>CSV</span>
+            </div>
+            <!-- DB -->
+            <div class="output-icon-card" style="transform: translateY(-7px)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+              <span>DB</span>
+            </div>
+          </div>
+          <div class="box-label">STRUCTURED OUTPUT</div>
         </div>
 
       </div>
@@ -438,8 +566,26 @@
                 </svg>
               </div>
               <div class="problem-content">
-                <h3>Processed in 2 minutes</h3>
-                <p>AI slashes turnaround times by 80%</p>
+                <h3>From 15 min → 2 min</h3>
+                <p>AI could cut turnaround time by 80%.</p>
+              </div>
+            </div>
+            <!-- Data version -->
+            <div class="problem-box data-version">
+              <div class="problem-icon-wrap">
+                <svg class="problem-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="10" y="8" width="20" height="24" rx="2"/>
+                  <line x1="20" y1="2" x2="20" y2="8"/>
+                  <circle cx="20" cy="20" r="5"/>
+                  <line x1="16" y1="32" x2="24" y2="32"/>
+                  <line x1="20" y1="32" x2="20" y2="38"/>
+                  <path d="M8 12 Q4 20 8 28"/>
+                  <path d="M32 12 Q36 20 32 28"/>
+                </svg>
+              </div>
+              <div class="problem-content">
+                <h3>Strict confidentiality</h3>
+                <p>Labelled data stays locked behind NDAs.</p>
               </div>
             </div>
           </div>
@@ -472,7 +618,26 @@
               </div>
               <div class="problem-content">
                 <h3>Insurer focuses on what matters</h3>
-                <p>AI enables insurers to focus on complex, high-value decisions.</p>
+                <p>AI could free insurers for complex, high-value decisions.</p>
+              </div>
+            </div>
+            <!-- Data version -->
+            <div class="problem-box data-version">
+              <div class="problem-icon-wrap">
+                <svg class="problem-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="8" width="28" height="22" rx="2"/>
+                  <line x1="6" y1="14" x2="34" y2="14"/>
+                  <line x1="13" y1="8" x2="13" y2="14"/>
+                  <line x1="20" y1="8" x2="20" y2="14"/>
+                  <line x1="10" y1="20" x2="20" y2="20"/>
+                  <line x1="10" y1="25" x2="16" y2="25"/>
+                  <line x1="26" y1="19" x2="32" y2="25"/>
+                  <line x1="32" y1="19" x2="26" y2="25"/>
+                </svg>
+              </div>
+              <div class="problem-content">
+                <h3>Manual annotation infeasible</h3>
+                <p>Hand-labelling at scale is too costly and slow.</p>
               </div>
             </div>
           </div>
@@ -487,6 +652,7 @@
       <span class="dot active" data-state="1"></span>
       <span class="dot" data-state="2"></span>
       <span class="dot" data-state="3"></span>
+      <span class="dot" data-state="4"></span>
     </div>
   </div>
 
@@ -496,23 +662,28 @@
     const problemSlots = document.querySelectorAll('.problem-slot');
     const insurerBox = document.getElementById('insurerBox');
     const aiBox = document.getElementById('aiBox');
+    const aiBoxSad = document.getElementById('aiBoxSad');
     const subtitle = document.getElementById('subtitle');
     const dots = document.querySelectorAll('.dot');
 
     const subtitles = {
       1: 'Automating insurance quote-intake from unstructured submissions.',
       2: 'Two problems make the manual process hard to scale.',
-      3: 'AI handles processing — the insurer focuses on high-value decisions.'
+      3: 'AI handles processing — the insurer focuses on high-value decisions.',
+      4: 'But training AI requires data that doesn\'t exist — or can\'t be shared.'
     };
 
     function updateState() {
-      // Lower boxes visible in states 2 and 3
-      problems.classList.toggle('visible', state === 2 || state === 3);
+      // Lower boxes visible in states 2, 3, and 4
+      problems.classList.toggle('visible', state === 2 || state === 3 || state === 4);
       // Toggle benefit mode only in state 3
       problemSlots.forEach(slot => slot.classList.toggle('benefit', state === 3));
-      // Middle slot swap
-      insurerBox.classList.toggle('hidden', state === 3);
+      // Toggle data mode only in state 4
+      problemSlots.forEach(slot => slot.classList.toggle('data', state === 4));
+      // Middle slot: insurer hidden in 3+4, happy AI in 3 only, sad AI in 4 only
+      insurerBox.classList.toggle('hidden', state === 3 || state === 4);
       aiBox.classList.toggle('visible', state === 3);
+      aiBoxSad.classList.toggle('visible', state === 4);
 
       subtitle.style.opacity = 0;
       setTimeout(() => {
@@ -526,12 +697,12 @@
     }
 
     function advance() {
-      state = state === 3 ? 1 : state + 1;
+      state = state === 4 ? 1 : state + 1;
       updateState();
     }
 
     function retreat() {
-      state = state === 1 ? 3 : state - 1;
+      state = state === 1 ? 4 : state - 1;
       updateState();
     }
 
