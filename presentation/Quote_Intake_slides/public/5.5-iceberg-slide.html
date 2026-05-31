@@ -77,10 +77,10 @@
     background: rgba(255,255,255,0.82);
     border: 1.5px solid rgba(1,7,186,0.12);
     border-radius: 12px;
-    padding: 16px 18px;
+    padding: 20px 22px; /* Increased padding slightly for scaled fonts */
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 16px;
     backdrop-filter: blur(6px);
     opacity: 0;
     transform: translateY(16px);
@@ -95,8 +95,8 @@
   }
 
   .card-icon {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
     border-radius: 10px;
     background: #0107ba;
     display: flex;
@@ -105,22 +105,24 @@
     flex-shrink: 0;
   }
 
-  .card-icon svg { width: 21px; height: 21px; color: white; }
+  .card-icon svg { width: 24px; height: 24px; color: white; }
 
   .card-text { flex: 1; min-width: 0; }
 
+  /* Font size boosted here */
   .card-title {
-    font-size: 0.92rem;
+    font-size: 1.1rem; 
     font-weight: 700;
     color: #0f172a;
-    margin-bottom: 4px;
-    line-height: 1.2;
+    margin-bottom: 6px;
+    line-height: 1.25;
   }
 
+  /* Font size boosted here */
   .card-desc {
-    font-size: 0.78rem;
+    font-size: 0.9rem; 
     color: #475569;
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   /* ── PROGRESS ── */
@@ -149,12 +151,10 @@
 <div class="slide">
   <div class="bg-watermark"></div>
 
-  <!-- ABOVE WATER -->
   <div class="above-water">
     <div class="slide-title">UNDER THE HOOD</div>
   </div>
 
-  <!-- WATERLINE -->
   <div class="waterline-wrap">
     <svg width="100%" height="32" viewBox="0 0 1440 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,16 C180,4 360,28 540,16 C720,4 900,28 1080,16 C1260,4 1380,24 1440,16 L1440,32 L0,32 Z" fill="#dde8f8"/>
@@ -163,14 +163,11 @@
     </svg>
   </div>
 
-  <!-- BELOW WATER -->
   <div class="below-water">
     <div class="decisions-grid">
 
-      <!-- Pair 0 -->
       <div class="decision-card" data-pair="0">
         <div class="card-icon">
-          <!-- Layers / stack icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
             <polyline points="2 17 12 22 22 17"/>
@@ -179,13 +176,12 @@
         </div>
         <div class="card-text">
           <div class="card-title">One platform, zero friction</div>
-          <div class="card-desc">GPU server, OCR service, and Streamlit app are all dockerized and run together inside Snowpark Container Services — one ecosystem, shared secrets, and no glue code between platforms</div>
+          <div class="card-desc">The GPU server, OCR engine, and Streamlit frontend are <strong>bundled into a single Docker container</strong> inside Snowpark, removing network latency and complex external API dependencies.</div>
         </div>
       </div>
 
       <div class="decision-card" data-pair="0">
         <div class="card-icon">
-          <!-- Database / cache icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="12" cy="5" rx="9" ry="3"/>
             <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
@@ -194,14 +190,12 @@
         </div>
         <div class="card-text">
           <div class="card-title">Run once, reuse forever</div>
-          <div class="card-desc">Page images, OCR output, and matched field positions are all cached to Snowflake stage after the first run — reloading results is instant, no recomputation needed</div>
+          <div class="card-desc">Extracted text, bounding boxes, and raw coordinates are <strong>cached directly to a Snowflake internal stage</strong> instantly after initial processing, eliminating redundant extraction overhead.</div>
         </div>
       </div>
 
-      <!-- Pair 1 -->
       <div class="decision-card" data-pair="1">
         <div class="card-icon">
-          <!-- Target / precision icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <circle cx="12" cy="12" r="6"/>
@@ -210,13 +204,12 @@
         </div>
         <div class="card-text">
           <div class="card-title">Right value, not just any match</div>
-          <div class="card-desc">When the same value appears multiple times in a document, the system picks the occurrence whose row label best matches the field name — not just the first fuzzy hit</div>
+          <div class="card-desc">If a value repeats across a form, the algorithm <strong>matches spatial coordinates and context labels</strong> rather than taking the first chronological text hit.</div>
         </div>
       </div>
 
       <div class="decision-card" data-pair="1">
         <div class="card-icon">
-          <!-- Loop / feedback icon -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="23 4 23 10 17 10"/>
             <polyline points="1 20 1 14 7 14"/>
@@ -225,13 +218,12 @@
         </div>
         <div class="card-text">
           <div class="card-title">Corrections captured, ready for training</div>
-          <div class="card-desc">Every user flag is stored in Snowflake with field key, extracted value, and suggested fix — the feedback dataset is being built now, ready to drive future fine-tuning</div>
+          <div class="card-desc">Every manual fix is captured in relational tables, <strong>building a premium ground-truth dataset</strong> to train future models.</div>
         </div>
       </div>
 
     </div>
 
-    <!-- Progress dots -->
     <div class="progress-row" id="progress">
       <div class="progress-dot" data-step="0"></div>
       <div class="progress-dot" data-step="1"></div>

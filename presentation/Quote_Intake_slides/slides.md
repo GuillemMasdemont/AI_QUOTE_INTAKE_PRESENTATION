@@ -148,8 +148,6 @@ h1 {
     University of Ljubljana · May 2026 · Spring Semester
   </div>
 </div>
-
-
   
 
 ---
