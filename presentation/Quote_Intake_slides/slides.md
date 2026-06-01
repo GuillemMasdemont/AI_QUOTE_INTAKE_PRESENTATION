@@ -155,6 +155,11 @@ layout: iframe
 url: /1_2-problem.html
 ---
 
+---
+layout: iframe
+url: /2-goal-slide.html
+---
+
     
 ---
 layout: iframe
@@ -166,10 +171,7 @@ layout: iframe
 url: /3-pipeline-slide_extraction_pipeline.html
 ---
 
----
-layout: iframe
-url: /2-goal-slide.html
----
+
 
 ---
 layout: iframe
