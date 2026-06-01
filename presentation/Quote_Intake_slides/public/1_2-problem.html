@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Our Challenge</title>
+  <title>The Problem</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -31,6 +31,8 @@
       color: #0107ba;
       letter-spacing: 1.4px;
       margin-bottom: 12px;
+      text-align: left;
+      transition: opacity 0.3s ease;
     }
 
     .subtitle {
@@ -39,6 +41,7 @@
       margin-bottom: 22px;
       min-height: 1.4em;
       transition: opacity 0.3s ease;
+      text-align: left;
     }
 
     .content {
@@ -121,6 +124,22 @@
       width: 100%;
     }
 
+    /* Reddish insurer box for state 2 */
+    .middle-slot .insurer-box.problem {
+      background: #fff0ef;
+      border-color: #c0251a;
+    }
+
+    .middle-slot .insurer-box.problem .box-icon {
+      color: #b01a10;
+      transition: color 0.45s ease;
+    }
+
+    .middle-slot .insurer-box.problem .box-label {
+      color: #8f120a;
+      transition: color 0.45s ease;
+    }
+
     .middle-slot .ai-box {
       background: #f0faf4;
       border-color: #1e8a4a;
@@ -133,23 +152,6 @@
     .middle-slot .ai-box .box-label { color: #1e8a4a; }
 
     .middle-slot .ai-box.visible {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-    }
-
-    .middle-slot .ai-box-sad {
-      background: #fff5f5;
-      border-color: #e8824e;
-      opacity: 0;
-      transform: scale(0.94);
-      pointer-events: none;
-    }
-
-    .middle-slot .ai-box-sad .box-icon { color: #d96f2e; }
-    .middle-slot .ai-box-sad .box-label { color: #b85020; }
-
-    .middle-slot .ai-box-sad.visible {
       opacity: 1;
       transform: scale(1);
       pointer-events: auto;
@@ -190,8 +192,8 @@
     }
 
     .problem-box {
-      background: #fef5ec;
-      border: 2px solid #e8824e;
+      background: #fff0ef;
+      border: 2px solid #c0251a;
       border-radius: 12px;
       padding: 12px 18px;
       display: flex;
@@ -219,30 +221,6 @@
       pointer-events: auto;
     }
 
-    .problem-box.data-version {
-      position: absolute;
-      inset: 0;
-      background: #fef5ec;
-      border-color: #e8824e;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .problem-slot.data .problem-version {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .problem-slot.data .benefit-version {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .problem-slot.data .data-version {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
     .problem-icon-wrap {
       flex-shrink: 0;
       width: 46px;
@@ -252,7 +230,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 6px rgba(232, 130, 78, 0.16);
+      box-shadow: 0 2px 6px rgba(192, 37, 26, 0.16);
     }
 
     .benefit-version .problem-icon-wrap {
@@ -262,7 +240,7 @@
     .problem-icon {
       width: 28px;
       height: 28px;
-      color: #d96f2e;
+      color: #b01a10;
     }
 
     .benefit-version .problem-icon {
@@ -272,7 +250,7 @@
     .problem-content h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: #b85020;
+      color: #8f120a;
       margin-bottom: 2px;
     }
 
@@ -374,7 +352,7 @@
   <div class="slide">
     <div class="bg-watermark"></div>
 
-    <h1 class="title">OUR CHALLENGE</h1>
+    <h1 class="title" id="slideTitle">Our Challenge</h1>
     <div class="subtitle" id="subtitle">Automating insurance quote-intake from unstructured submissions.</div>
 
     <div class="content">
@@ -433,18 +411,12 @@
               <path d="M18 50 Q18 42 30 42 Q42 42 42 50" fill="white" stroke-width="2"/>
 
               <!-- AI Monitor (right, prominent) -->
-              <!-- Screen frame -->
               <rect x="52" y="26" width="36" height="28" rx="3" fill="white" stroke-width="2.5"/>
-              <!-- Screen glow fill -->
               <rect x="55" y="29" width="30" height="20" rx="2" fill="currentColor" fill-opacity="0.08" stroke="none"/>
-              <!-- "AI" text large and bold -->
               <text x="70" y="44" text-anchor="middle" font-size="16" font-weight="800" stroke="none" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif">AI</text>
-              <!-- Screen circuit dots -->
               <circle cx="57" cy="31" r="1.2" fill="currentColor" stroke="none"/>
               <circle cx="83" cy="31" r="1.2" fill="currentColor" stroke="none"/>
-              <!-- Monitor stand -->
               <line x1="70" y1="54" x2="70" y2="63"/>
-              <!-- Monitor base -->
               <line x1="62" y1="63" x2="78" y2="63"/>
 
               <!-- Desk -->
@@ -454,39 +426,6 @@
 
               <!-- Person's arm reaching toward monitor -->
               <path d="M38 48 Q46 50 52 44" stroke-width="2" fill="none"/>
-            </svg>
-            <div class="box-label">INSURER + AI</div>
-          </div>
-
-          <div class="box ai-box-sad" id="aiBoxSad">
-            <svg class="box-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <!-- Sad head (left side) -->
-              <circle cx="30" cy="24" r="10" fill="white"/>
-              <!-- Sad eyebrows: inner corners low -->
-              <path d="M23 19 Q26 22 29 20" stroke-width="2" fill="none"/>
-              <path d="M31 20 Q34 22 37 19" stroke-width="2" fill="none"/>
-              <!-- Frown -->
-              <path d="M24 30 Q30 24 36 30" stroke-width="2.2" fill="none"/>
-              <!-- Neck + shoulders -->
-              <line x1="30" y1="34" x2="30" y2="42"/>
-              <path d="M18 50 Q18 42 30 42 Q42 42 42 50" fill="white" stroke-width="2"/>
-
-              <!-- AI Monitor with "?" -->
-              <rect x="52" y="26" width="36" height="28" rx="3" fill="white" stroke-width="2.5"/>
-              <rect x="55" y="29" width="30" height="20" rx="2" fill="currentColor" fill-opacity="0.08" stroke="none"/>
-              <text x="70" y="44" text-anchor="middle" font-size="18" font-weight="800" stroke="none" fill="currentColor" font-family="Plus Jakarta Sans, sans-serif">?</text>
-              <circle cx="57" cy="31" r="1.2" fill="currentColor" stroke="none"/>
-              <circle cx="83" cy="31" r="1.2" fill="currentColor" stroke="none"/>
-              <line x1="70" y1="54" x2="70" y2="63"/>
-              <line x1="62" y1="63" x2="78" y2="63"/>
-
-              <!-- Desk -->
-              <rect x="12" y="63" width="76" height="5" rx="2"/>
-              <line x1="20" y1="68" x2="20" y2="80"/>
-              <line x1="80" y1="68" x2="80" y2="80"/>
-
-              <!-- Arm dropping away from monitor -->
-              <path d="M38 48 Q44 56 50 52" stroke-width="2" fill="none"/>
             </svg>
             <div class="box-label">INSURER + AI</div>
           </div>
@@ -570,24 +509,6 @@
                 <p>AI could cut turnaround time by 80%.</p>
               </div>
             </div>
-            <!-- Data version -->
-            <div class="problem-box data-version">
-              <div class="problem-icon-wrap">
-                <svg class="problem-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="10" y="8" width="20" height="24" rx="2"/>
-                  <line x1="20" y1="2" x2="20" y2="8"/>
-                  <circle cx="20" cy="20" r="5"/>
-                  <line x1="16" y1="32" x2="24" y2="32"/>
-                  <line x1="20" y1="32" x2="20" y2="38"/>
-                  <path d="M8 12 Q4 20 8 28"/>
-                  <path d="M32 12 Q36 20 32 28"/>
-                </svg>
-              </div>
-              <div class="problem-content">
-                <h3>Strict confidentiality</h3>
-                <p>Labelled data stays locked behind NDAs.</p>
-              </div>
-            </div>
           </div>
 
           <!-- Slot 2: Focus -->
@@ -621,25 +542,6 @@
                 <p>AI could free insurers for complex, high-value decisions.</p>
               </div>
             </div>
-            <!-- Data version -->
-            <div class="problem-box data-version">
-              <div class="problem-icon-wrap">
-                <svg class="problem-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="6" y="8" width="28" height="22" rx="2"/>
-                  <line x1="6" y1="14" x2="34" y2="14"/>
-                  <line x1="13" y1="8" x2="13" y2="14"/>
-                  <line x1="20" y1="8" x2="20" y2="14"/>
-                  <line x1="10" y1="20" x2="20" y2="20"/>
-                  <line x1="10" y1="25" x2="16" y2="25"/>
-                  <line x1="26" y1="19" x2="32" y2="25"/>
-                  <line x1="32" y1="19" x2="26" y2="25"/>
-                </svg>
-              </div>
-              <div class="problem-content">
-                <h3>Manual annotation infeasible</h3>
-                <p>Hand-labelling at scale is too costly and slow.</p>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -652,7 +554,6 @@
       <span class="dot active" data-state="1"></span>
       <span class="dot" data-state="2"></span>
       <span class="dot" data-state="3"></span>
-      <span class="dot" data-state="4"></span>
     </div>
   </div>
 
@@ -662,31 +563,37 @@
     const problemSlots = document.querySelectorAll('.problem-slot');
     const insurerBox = document.getElementById('insurerBox');
     const aiBox = document.getElementById('aiBox');
-    const aiBoxSad = document.getElementById('aiBoxSad');
     const subtitle = document.getElementById('subtitle');
+    const slideTitle = document.getElementById('slideTitle');
     const dots = document.querySelectorAll('.dot');
+
+    const titles = {
+      1: 'Our Challenge',
+      2: 'Current Bottlenecks',
+      3: 'AI as a Solution',
+    };
 
     const subtitles = {
       1: 'Automating insurance quote-intake from unstructured submissions.',
       2: 'Two problems make the manual process hard to scale.',
       3: 'AI handles processing — the insurer focuses on high-value decisions.',
-      4: 'But training AI requires data that doesn\'t exist — or can\'t be shared.'
     };
 
     function updateState() {
-      // Lower boxes visible in states 2, 3, and 4
-      problems.classList.toggle('visible', state === 2 || state === 3 || state === 4);
+      // Lower boxes visible in states 2 and 3
+      problems.classList.toggle('visible', state === 2 || state === 3);
       // Toggle benefit mode only in state 3
       problemSlots.forEach(slot => slot.classList.toggle('benefit', state === 3));
-      // Toggle data mode only in state 4
-      problemSlots.forEach(slot => slot.classList.toggle('data', state === 4));
-      // Middle slot: insurer hidden in 3+4, happy AI in 3 only, sad AI in 4 only
-      insurerBox.classList.toggle('hidden', state === 3 || state === 4);
+      // Middle slot: insurer hidden in state 3, reddish in state 2
+      insurerBox.classList.toggle('hidden', state === 3);
+      insurerBox.classList.toggle('problem', state === 2);
       aiBox.classList.toggle('visible', state === 3);
-      aiBoxSad.classList.toggle('visible', state === 4);
 
+      slideTitle.style.opacity = 0;
       subtitle.style.opacity = 0;
       setTimeout(() => {
+        slideTitle.textContent = titles[state];
+        slideTitle.style.opacity = 1;
         subtitle.textContent = subtitles[state];
         subtitle.style.opacity = 1;
       }, 150);
@@ -697,12 +604,12 @@
     }
 
     function advance() {
-      state = state === 4 ? 1 : state + 1;
+      state = state === 3 ? 1 : state + 1;
       updateState();
     }
 
     function retreat() {
-      state = state === 1 ? 4 : state - 1;
+      state = state === 1 ? 3 : state - 1;
       updateState();
     }
 
