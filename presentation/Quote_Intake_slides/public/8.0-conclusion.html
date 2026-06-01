@@ -165,12 +165,24 @@
       object-fit: contain;
     }
 
+    /* Footer Container */
     .footer {
       position: absolute;
       bottom: 25px;
       left: 60px;
       font-size: 0.8rem;
       color: #777;
+      line-height: 1.5; /* Adds nice spacing between the two lines */
+    }
+
+    .footer a {
+      color: #0107ba;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -185,7 +197,7 @@
           <div class="icon-box"><i class="fa-solid fa-hourglass-half"></i></div>
           <div class="text-box">
             <h3>Time Savings</h3>
-            <p>Cycle cut from <b>10 min</b> to <span class="metric-badge">2 min</span> per form.</p>
+            <p>Cycle cut from <b>15 min</b> to <span class="metric-badge">2 min</span> per form.</p>
           </div>
         </li>
 
@@ -193,7 +205,7 @@
           <div class="icon-box"><i class="fa-solid fa-bullseye"></i></div>
           <div class="text-box">
             <h3>High Accuracy</h3>
-            <p>Baseline score of <span class="metric-badge metric-badge-green">0.647</span> with over <b>80%</b> confidence.</p>
+            <p>Baseline score of <span class="metric-badge metric-badge-green">0.647</span> with over <b>80%</b> accuracy.</p>
           </div>
         </li>
 
@@ -222,7 +234,8 @@
     </div>
 
     <div class="footer">
-      University of Ljubljana · Faculty of Computer and Information Science · Spring Semester 2026
+      <div>University of Ljubljana · Faculty of Computer and Information Science · Spring Semester 2026</div>
+      <div>Contacts: Guillem Masdemont (<a href="mailto:guillem.masdemont01@estudiant.upf.edu">guillem.masdemont01@estudiant.upf.edu</a>) and Plabon Shaha (<a href="mailto:plabon.shaha01@estudiant.upf.edu">plabon.shaha01@estudiant.upf.edu</a>)</div>
     </div>
   </div>
 
